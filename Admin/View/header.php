@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Management Interface</title>
+    <link rel="stylesheet" type="View/style.css"> 
+    <!--<style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f0f8ff;
+        }
+
+        .header {
+            text-align: center;
+            background: #003366;
+            color: white;
+            padding: 20px;
+        }
+
+        .header .logo {
+            width: 60px;
+            height: auto;
+            display: inline-block;
+        }
+
+        .header h1, .header h2 {
+            margin: 10px 0;
+        }
+
+        .user-info {
+            display: flex;
+            justify-content: space-between;
+            background: #e8e8e8;
+            padding: 10px;
+            color: #333;
+            font-size: 16px;
+        }
+
+        .menu {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin: 20px;
+            gap: 20px;
+        }
+
+        .menu-item {
+            width: 150px;
+            height: 150px;
+            background: #0066cc;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            font-weight: bold;
+            border-radius: 8px;
+            transition: background 0.3s;
+            cursor: pointer;
+        }
+
+        .menu-item:hover {
+            background: #004b8d;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 10px;
+            background: #e8e8e8;
+            color: #333;
+            font-size: 14px;
+        }-->
+    </style>
+</head>
+<body>
+    <div class="header">
+        <img src="NTU.jpg" alt="NTU Logo" class="logo">
+        <h1>TRƯỜNG ĐẠI HỌC NHA TRANG</h1>
+        <h2>HỆ THỐNG TÍCH HỢP THÔNG TIN</h2>
+    </div>

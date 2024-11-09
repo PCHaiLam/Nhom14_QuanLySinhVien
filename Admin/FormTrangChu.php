@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Student Management Interface</title>
-    <style>
+    <!--<style>
         * {
             margin: 0;
             padding: 0;
@@ -75,7 +75,7 @@
             background: #e8e8e8;
             color: #333;
             font-size: 14px;
-        }
+        }-->
     </style>
 </head>
 <body>

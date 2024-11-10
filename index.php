@@ -2,19 +2,18 @@
 session_start(); // Khởi tạo session
 include_once './config/db.php';
 include_once './Controllers/QuanTriController.php';
-include_once './Views/QuanTri/loginPage.php';
 
-// Kiểm tra nếu đã gửi thông tin đăng nhập
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $username = $_POST['taikhoan'];
-    $password = $_POST['password'];
-    
-    $controller = new QuanTriController($conn);
-    $controller->login($username, $password);
-}
-
-// $controllerName = ucfirst(strtolower($_REQUEST['controller']??'Welcome').'Controller');
-
-// require "./Controllers/QuanTriController.php"
-
+    if(isset($_SESSION['User']) == -1) {
+        header("Location: ./Views/loginPage.php");
+        exit();
+    }else if (isset($_SESSION['User']) == 0) {
+        header("Location: ./Views/AdminPage.php");
+        exit();
+    }else if (isset($_SESSION['User']) == 1) {
+        header("Location: ./Views/GiaoVienPage.php");
+        exit();
+    }else if (isset($_SESSION['User']) == 2) {
+        header("Location: ./Views/SinhVienPage.php");
+        exit();
+    }
 ?>

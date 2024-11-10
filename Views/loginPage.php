@@ -1,3 +1,32 @@
+<?php 
+@session_start();
+require_once __DIR__ . '/../config/db.php';
+include_once __DIR__ . '/../Controllers/QuanTriController.php';
+
+$quantriController = new QuanTriController($conn);
+$mess = "";
+// Kiểm tra nếu đã gửi thông tin đăng nhập
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $username = $_POST['taikhoan'];
+    $password = $_POST['password'];
+    
+    if($quantriController->login($username, $password) == 0) {
+        header("Location: AdminPage.php");
+        exit();
+    }else if ($quantriController->login($username, $password) == 1) {
+        header("Location: GiaoVienPage.php");
+        exit();
+    }else if ($quantriController->login($username, $password) == 2) {
+        header("Location: SinhVienPage.php");
+        exit();
+    }
+    else {
+        $mess = "Tên đăng nhập hoặc mật khẩu không đúng!!!";
+    }
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -20,6 +49,7 @@
         <div class="mb-6">
             <input type="password" name="password" placeholder="Nhập mật khẩu" required class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400">
         </div>
+        
         <a href="forgot_password.php" class="text-sm text-blue-500 hover:underline block mb-4">Quên mật khẩu?</a>
         <button type="submit" class="w-full p-3 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none">ĐĂNG NHẬP</button>
     </form>

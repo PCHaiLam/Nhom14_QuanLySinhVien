@@ -1,3 +1,25 @@
+<?php 
+session_start();
+require_once __DIR__ . '/../config/db.php';
+include_once __DIR__ . '/../Controllers/QuanTriController.php';
+$quantriController = new QuanTriController($conn);
+
+if (!isset($_SESSION['User'])) {
+    header('Location: loginPage.php');
+    exit;
+}
+
+// Kiểm tra nếu action là logout
+if (isset($_GET['action']) && $_GET['action'] == 'logout') {
+    // Gọi hàm logout và kiểm tra nếu logout thành công
+    if ($quantriController->logout()) {
+        // Nếu logout thành công, chuyển hướng đến trang đăng nhập
+        header('Location: loginPage.php');
+        exit;
+    }
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,25 +31,18 @@
 </head>
 
 <body class="flex flex-col">
-<?php include_once __DIR__ . "/../../layout/header.php"; ?>
+<?php include_once __DIR__ . "/../layout/header.php"; ?>
 <div class="max-w-4xl mx-auto my-8 space-y-6">
         <div class="flex justify-between items-center bg-gray-200 p-4 text-gray-800 rounded-lg shadow">
             <p class="text-lg font-semibold">Tài khoản:
-            <?php require_once __DIR__ . '/../../config/db.php';
-                session_start();
+            <?php 
+            // print_r($_SESSION['User']);
 
-                if (!isset($_SESSION['user'])) {
-                    // Nếu chưa đăng nhập, chuyển hướng về trang đăng nhập
-                    header('Location: index.php');
-                    exit;
-                }
-                echo "<h1 class='uppercase'>" . $_SESSION['HoTen'] . "</h1>";
-
-                $conn->close();  // Đóng kết nối khi xong
+                echo "<h1 class='uppercase'>" . $_SESSION['User']['HoTen'] . "</h1>";
             ?>
             </p>
-            <div class="icons">
-                <a href="loginPage.php" class="text-blue-600 hover:underline">Đăng xuất</a>
+            <div class="">
+                <a href="?action=logout" class="text-blue-600 hover:underline">Đăng xuất</a>
             </div>
         </div>
 
@@ -47,7 +62,7 @@
         </div>
     </div>
 
-<?php include_once __DIR__ . "/../../layout/footer.php"; ?>
+<?php include_once __DIR__ . "/../layout/footer.php"; ?>
 
 </body>
 </html>

@@ -15,8 +15,8 @@ class QuanTriController {
             $quyen = $row['Quyen'];
 
             $_SESSION['session_time'] = time();
-            // $_SESSION['limit_session_time'] = time() + 20*60;
-            $_SESSION['limit_session_time'] = time() + 5;
+            $_SESSION['limit_session_time'] = time() + 20*60;
+            // $_SESSION['limit_session_time'] = time() + 5;
             
             // Tùy vào quyền của người dùng, gọi hàm lấy thông tin tương ứng
             if ($quyen == '0') {

@@ -27,6 +27,7 @@ if (isset($_GET['action']) && $_GET['action'] == 'logout') {
     <title>Quản lí sinh viên</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="../asset/script.js"></script>
 </head>
 <header class="flex justify-between items-center text-center bg-gradient-to-b from-blue-900 via-blue-900 to-blue-700 text-white px-10 h-24">
         <img src="../asset/NTU.jpg" alt="NTU Logo" class="h-20 rounded-full">

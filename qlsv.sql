@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 10, 2024 at 11:03 AM
+-- Generation Time: Nov 11, 2024 at 04:27 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -70,20 +70,40 @@ INSERT INTO `hocki` (`MaHocKi`, `TenHocKi`, `NgayBatDau`, `NgayKetThuc`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `khoa`
+--
+
+CREATE TABLE `khoa` (
+  `MaKhoa` varchar(10) NOT NULL,
+  `TenKhoa` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+--
+-- Dumping data for table `khoa`
+--
+
+INSERT INTO `khoa` (`MaKhoa`, `TenKhoa`) VALUES
+('01-CNTT', 'Công nghệ thông tin'),
+('02-KT', 'Kinh tế'),
+('03-DL', 'Du lịch');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `lop`
 --
 
 CREATE TABLE `lop` (
   `MaLop` varchar(10) NOT NULL,
   `TenLop` varchar(100) NOT NULL,
-  `MaNganh` varchar(10) DEFAULT NULL
+  `MaKhoa` varchar(10) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Dumping data for table `lop`
 --
 
-INSERT INTO `lop` (`MaLop`, `TenLop`, `MaNganh`) VALUES
+INSERT INTO `lop` (`MaLop`, `TenLop`, `MaKhoa`) VALUES
 ('63.CNTT-1', 'Công Nghệ Thông Tin 1', '01-CNTT'),
 ('63.CNTT-2', 'Công Nghệ Thông Tin 2', '01-CNTT'),
 ('63.DL-1', 'Du Lịch 1', '03-DL'),
@@ -143,33 +163,13 @@ INSERT INTO `monhoc` (`MaHP`, `TenHP`, `SoTinChi`, `DonGia`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `nganh`
---
-
-CREATE TABLE `nganh` (
-  `MaNganh` varchar(10) NOT NULL,
-  `TenNganh` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
-
---
--- Dumping data for table `nganh`
---
-
-INSERT INTO `nganh` (`MaNganh`, `TenNganh`) VALUES
-('01-CNTT', 'Công nghệ thông tin'),
-('02-KT', 'Kinh tế'),
-('03-DL', 'Du lịch');
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `quantri`
 --
 
 CREATE TABLE `quantri` (
   `TaiKhoan` varchar(20) NOT NULL,
   `MatKhau` varchar(20) NOT NULL,
-  `Quyen` tinyint(1) DEFAULT 1
+  `Quyen` tinyint(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
@@ -177,9 +177,14 @@ CREATE TABLE `quantri` (
 --
 
 INSERT INTO `quantri` (`TaiKhoan`, `MatKhau`, `Quyen`) VALUES
-('63010001', '123', 0),
-('Admin', 'admin', 1),
-('GV01', '123', 1);
+('63010002', '123', 2),
+('63010003', '123', 2),
+('63010004', '123', 2),
+('admin', 'admin', 0),
+('GV01', '123', 1),
+('GV02', '123', 1),
+('GV03', '123', 1),
+('GV04', '123', 1);
 
 -- --------------------------------------------------------
 
@@ -195,6 +200,7 @@ CREATE TABLE `sinhvien` (
   `DiaChi` varchar(200) DEFAULT NULL,
   `Email` varchar(100) DEFAULT NULL,
   `SDT` varchar(15) DEFAULT NULL,
+  `AnhSV` varchar(100) NOT NULL,
   `MaLop` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
@@ -202,19 +208,19 @@ CREATE TABLE `sinhvien` (
 -- Dumping data for table `sinhvien`
 --
 
-INSERT INTO `sinhvien` (`MaSV`, `HoTen`, `NgaySinh`, `GioiTinh`, `DiaChi`, `Email`, `SDT`, `MaLop`) VALUES
-('63010001', 'Nguyễn Văn A', '2000-01-01', 'Nam', '123 Đường ABC', 'a@example.com', '0123456789', '63.CNTT-1'),
-('63010002', 'Trần Thị B', '2000-02-02', 'Nữ', '456 Đường DEF', 'b@example.com', '0987654321', '63.CNTT-1'),
-('63010003', 'Lê Thị C', '2000-03-03', 'Nữ', '789 Đường GHI', 'c@example.com', '0123456789', '63.CNTT-2'),
-('63010004', 'Nguyễn Thị D', '2000-04-04', 'Nữ', '101 Đường JKL', 'd@example.com', '0987654321', '63.CNTT-2'),
-('63020001', 'Trần Văn E', '2000-05-05', 'Nam', '202 Đường MNO', 'e@example.com', '0123456789', '63.KT-1'),
-('63020002', 'Phạm Minh F', '2000-06-06', 'Nam', '303 Đường PQR', 'f@example.com', '0987654321', '63.KT-1'),
-('63020003', 'Bùi Minh G', '2000-07-07', 'Nam', '404 Đường STU', 'g@example.com', '0123456789', '63.KT-2'),
-('63020004', 'Võ Thị H', '2000-08-08', 'Nữ', '505 Đường VWX', 'h@example.com', '0987654321', '63.KT-2'),
-('63030001', 'Lê Minh I', '2000-09-09', 'Nam', '606 Đường YZ', 'i@example.com', '0123456789', '63.DL-1'),
-('63030002', 'Trần Minh J', '2000-10-10', 'Nam', '707 Đường ABC', 'j@example.com', '0987654321', '63.DL-1'),
-('63030003', 'Nguyễn Minh K', '2000-11-11', 'Nam', '808 Đường DEF', 'k@example.com', '0123456789', '63.DL-2'),
-('63030004', 'Lê Thị L', '2000-12-12', 'Nữ', '909 Đường GHI', 'l@example.com', '0987654321', '63.DL-2');
+INSERT INTO `sinhvien` (`MaSV`, `HoTen`, `NgaySinh`, `GioiTinh`, `DiaChi`, `Email`, `SDT`, `AnhSV`, `MaLop`) VALUES
+('63010001', 'Nguyễn Văn A', '2000-01-01', 'Nam', '123 Đường ABC', 'a@example.com', '0123456789', 'student.jpg', '63.CNTT-1'),
+('63010002', 'Trần Thị B', '2000-02-02', 'Nữ', '456 Đường DEF', 'b@example.com', '0987654321', 'student.jpg', '63.CNTT-1'),
+('63010003', 'Lê Thị C', '2000-03-03', 'Nữ', '789 Đường GHI', 'c@example.com', '0123456789', 'student.jpg', '63.CNTT-2'),
+('63010004', 'Nguyễn Thị D', '2000-04-04', 'Nữ', '101 Đường JKL', 'd@example.com', '0987654321', 'student.jpg', '63.CNTT-2'),
+('63020001', 'Trần Văn E', '2000-05-05', 'Nam', '202 Đường MNO', 'e@example.com', '0123456789', 'student.jpg', '63.KT-1'),
+('63020002', 'Phạm Minh F', '2000-06-06', 'Nam', '303 Đường PQR', 'f@example.com', '0987654321', 'student.jpg', '63.KT-1'),
+('63020003', 'Bùi Minh G', '2000-07-07', 'Nam', '404 Đường STU', 'g@example.com', '0123456789', 'student.jpg', '63.KT-2'),
+('63020004', 'Võ Thị H', '2000-08-08', 'Nữ', '505 Đường VWX', 'h@example.com', '0987654321', 'student.jpg', '63.KT-2'),
+('63030001', 'Lê Minh I', '2000-09-09', 'Nam', '606 Đường YZ', 'i@example.com', '0123456789', 'student.jpg', '63.DL-1'),
+('63030002', 'Trần Minh J', '2000-10-10', 'Nam', '707 Đường ABC', 'j@example.com', '0987654321', 'student.jpg', '63.DL-1'),
+('63030003', 'Nguyễn Minh K', '2000-11-11', 'Nam', '808 Đường DEF', 'k@example.com', '0123456789', 'student.jpg', '63.DL-2'),
+('63030004', 'Lê Thị L', '2000-12-12', 'Nữ', '909 Đường GHI', 'l@example.com', '0987654321', 'student.jpg', '63.DL-2');
 
 -- --------------------------------------------------------
 
@@ -257,11 +263,17 @@ ALTER TABLE `hocki`
   ADD PRIMARY KEY (`MaHocKi`);
 
 --
+-- Indexes for table `khoa`
+--
+ALTER TABLE `khoa`
+  ADD PRIMARY KEY (`MaKhoa`);
+
+--
 -- Indexes for table `lop`
 --
 ALTER TABLE `lop`
   ADD PRIMARY KEY (`MaLop`),
-  ADD KEY `FK_Lop_Nganh` (`MaNganh`);
+  ADD KEY `MaKhoa` (`MaKhoa`);
 
 --
 -- Indexes for table `lophocphan`
@@ -276,12 +288,6 @@ ALTER TABLE `lophocphan`
 --
 ALTER TABLE `monhoc`
   ADD PRIMARY KEY (`MaHP`);
-
---
--- Indexes for table `nganh`
---
-ALTER TABLE `nganh`
-  ADD PRIMARY KEY (`MaNganh`);
 
 --
 -- Indexes for table `quantri`
@@ -312,7 +318,7 @@ ALTER TABLE `sinhvien_lophocphan`
 -- Constraints for table `lop`
 --
 ALTER TABLE `lop`
-  ADD CONSTRAINT `FK_Lop_Nganh` FOREIGN KEY (`MaNganh`) REFERENCES `nganh` (`MaNganh`);
+  ADD CONSTRAINT `lop_ibfk_1` FOREIGN KEY (`MaKhoa`) REFERENCES `khoa` (`MaKhoa`);
 
 --
 -- Constraints for table `lophocphan`

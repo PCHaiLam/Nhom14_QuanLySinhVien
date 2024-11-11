@@ -7,9 +7,10 @@ class SinhVien {
     protected $DiaChi;
     protected $Email;
     protected $Sdt;
+    protected $AnhSV;
     protected $MaLop;
 
-    public function __construct($maSV, $hoTen, $ngaySinh, $gioiTinh, $diaChi, $email, $sdt, $maLop) {
+    public function __construct($maSV, $hoTen, $ngaySinh, $gioiTinh, $diaChi, $email, $sdt, $anhSV, $maLop) {
         $this->MaSV = $maSV;
         $this->HoTen = $hoTen;
         $this->NgaySinh = $ngaySinh;
@@ -17,6 +18,7 @@ class SinhVien {
         $this->DiaChi = $diaChi;
         $this->Email = $email;
         $this->Sdt = $sdt;
+        $this->AnhSV = $anhSV;
         $this->MaLop = $maLop;
     }
 
@@ -47,6 +49,9 @@ class SinhVien {
 
     public function getSdt() {
         return $this->Sdt;
+    }
+    public function getAnhSV() {
+        return $this->AnhSV;
     }
 
     public function getLop($conn) {
@@ -84,7 +89,9 @@ class SinhVien {
     public function setSdt($sdt) {
         $this->Sdt = $sdt;
     }
-
+    public function setAnhSV($anhSV) {
+        $this->AnhSV = $anhSV;
+    }
     public function setMaLop($maLop) {
         $this->MaLop = $maLop;
     }

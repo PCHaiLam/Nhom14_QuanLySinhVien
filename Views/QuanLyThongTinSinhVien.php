@@ -40,45 +40,55 @@ $sinhvienList = $svController->timKiem($maKhoa, $maLop);
 
 <body>
     <div class="my-6 w-full mx-2 min-h-[505px] flex justify-around">
-        <!-- form tìm kiếm -->
-        <form method="GET" class="h-max w-max px-5 py-4 flex flex-col bg-white rounded-xl shadow border-2">
-            <label class="grid grid-cols-2">
-                <span>Khoa</span>
-                <select id="khoaOption" name="option" class="col-span-2 p-2 border rounded-md" onchange="loadLopByKhoa()">
+        <!-- Wrapper for the button and form -->
+        <div class="flex flex-col items-center">
+            <!-- Button for adding a student -->
+            <button class="mb-4 px-4 py-2 bg-blue-500 text-white font-semibold rounded hover:bg-blue-600">
+                Thêm sinh viên
+            </button>
+            
+            <!-- form tìm kiếm -->
+            <form method="GET" class="h-max w-max px-5 py-4 flex flex-col bg-white rounded-xl shadow border-2 mt-4">
+                <label class="grid grid-cols-2">
+                    <span>Khoa</span>
+                    <select id="khoaOption" name="option" class="col-span-2 p-2 border rounded-md" onchange="loadLopByKhoa()">
+                        <option value=""></option>
+                    <?php
+                        // Kiểm tra nếu có dữ liệu khoa
+                        if ($khoaList->num_rows > 0) {
+                            // Lặp qua từng khoa và tạo các <option>
+                            while ($khoa = $khoaList->fetch_assoc()) {
+                                echo "<option value=\"" . $khoa['MaKhoa'] . "\">" . htmlspecialchars($khoa['TenKhoa']) . "</option>";
+                            }
+                        }
+                    ?>
+                    </select>
+                </label>
+                <label class="grid grid-cols-2 mt-2">
+                    <span>Lớp</span>
+                    <select id="lopOption" name="lopOption" class="col-span-2 p-2 border rounded-md">
                     <option value=""></option>
-                <?php
-                    // Kiểm tra nếu có dữ liệu khoa
-                    if ($khoaList->num_rows > 0) {
-                        // Lặp qua từng khoa và tạo các <option>
-                        while ($khoa = $khoaList->fetch_assoc()) {
-                            echo "<option value=\"" . $khoa['MaKhoa'] . "\">" . htmlspecialchars($khoa['TenKhoa']) . "</option>";
-                        }
-                    }
-                ?>
-                </select>
-            </label>
-            <label class="grid grid-cols-2 mt-2">
-                <span>Lớp</span>
-                <select id="lopOption" name="lopOption" class="col-span-2 p-2 border rounded-md">
-                <option value=""></option>
 
-                <?php
-                    // Kiểm tra nếu có dữ liệu lớp
-                    if ($lopList->num_rows > 0) {
-                        // Lặp qua từng lớp và tạo các <option>
-                        while ($lop = $lopList->fetch_assoc()) {
-                            echo "<option value=\"" . $lop['MaLop'] . "\">" . htmlspecialchars($lop['TenLop']) . "</option>";
+                    <?php
+                        // Kiểm tra nếu có dữ liệu lớp
+                        if ($lopList->num_rows > 0) {
+                            // Lặp qua từng lớp và tạo các <option>
+                            while ($lop = $lopList->fetch_assoc()) {
+                                echo "<option value=\"" . $lop['MaLop'] . "\">" . htmlspecialchars($lop['TenLop']) . "</option>";
+                            }
                         }
-                    }
-                ?>
-                </select>
-            </label>
-            <h1 class="font-bold text-xl py-2">Tìm kiếm</h1>
-            <input type="text" class="px-4 py-2 border rounded-md" placeholder="Tìm kiếm mssv, tên" id="searchInput">
-            <div class="text-center text-white">
-                <button type="submit" class="border-2 px-3 mt-2 rounded bg-gray-400 hover:bg-gray-500">Tìm</button>
-            </div>
-        </form>
+                    ?>
+                    </select>
+                </label>
+                <h1 class="font-bold text-xl py-2">Tìm kiếm</h1>
+                <input type="text" class="px-4 py-2 border rounded-md" placeholder="Tìm kiếm mssv, tên" id="searchInput">
+                <div class="text-center text-white">
+                    <button type="submit" class="border-2 px-3 mt-2 rounded bg-gray-400 hover:bg-gray-500">Tìm</button>
+                </div>
+            </form>
+        </div>
+        
+        <!-- Table displaying student data -->
         <div class="w-full h-[505px] mx-2 bg-white rounded-xl shadow border-2 overflow-scroll overflow-x-hidden">
             <table border="1" cellpadding="10" cellspacing="0" class="w-full text-center border border-collapse">
                 <thead>
@@ -121,7 +131,6 @@ $sinhvienList = $svController->timKiem($maKhoa, $maLop);
             </table>
         </div>
     </div>
-    
 </body>
 
 <?php include_once __DIR__ . "/../layout/footer.php"; ?>

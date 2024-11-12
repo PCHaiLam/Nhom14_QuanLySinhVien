@@ -127,17 +127,6 @@ $sinhvienList = $svController->timKiem($maKhoa, $maLop);
             </table>
         </div>
     </div>
-
-    <script>
-        function openModal() {
-            document.getElementById("addStudentModal").classList.remove("hidden");
-        }
-
-        function closeModal() {
-            document.getElementById("addStudentModal").classList.add("hidden");
-        }
-    </script>
 </body>
-
 
 <?php include_once __DIR__ . "/../layout/footer.php"; ?>

@@ -49,6 +49,13 @@ class SinhVien
             echo "Lỗi khi thêm sinh viên: " . $this->conn->error;
         }
     }
+    // Hàm xóa sinh viên
+    public function ChiTietSinhVien($maSV)
+    {
+        $sql = "SELECT * FROM sinhvien WHERE MaSV='$maSV'";
+        $result =  $this->conn->query($sql);
+        return $result->fetch_assoc();
+    }
     // Hàm sửa sinh viên
     public function SuaSinhVien($maSV, $hoTen, $ngaySinh, $gioiTinh, $diaChi, $email, $sdt, $maLop)
     {

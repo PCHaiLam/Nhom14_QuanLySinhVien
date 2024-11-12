@@ -9,8 +9,6 @@ $svController = new SinhVien($conn);
 $khoaController = new Khoa($conn);
 $lopController = new Lop($conn);
 
-
-
 // Kiểm tra và xử lý yêu cầu AJAX 
 if (isset($_GET['maKhoa'])) { 
     $maKhoa = $_GET['maKhoa']; 
@@ -39,11 +37,10 @@ $sinhvienList = $svController->timKiem($maKhoa, $maLop);
 <?php include_once __DIR__ . "/../layout/header.php"; ?>
 
 <body>
-    <div class="my-6 w-full mx-2 min-h-[505px] flex justify-around">
-        <!-- Wrapper for the button and form -->
+    <div class="my-6 mx-2 min-h-[520px] flex">
         <div class="flex flex-col items-center">
-            <!-- Button for adding a student -->
-            <button class="mb-4 px-4 py-2 bg-blue-500 text-white font-semibold rounded hover:bg-blue-600">
+            <!-- thêm button thêm sinh viên -->
+            <button onclick="window.location.href='AddNewStudent.php'" class="mb-4 px-4 py-2 bg-blue-500 text-white font-semibold rounded hover:bg-blue-600">
                 Thêm sinh viên
             </button>
             
@@ -87,29 +84,26 @@ $sinhvienList = $svController->timKiem($maKhoa, $maLop);
                 </div>
             </form>
         </div>
-        
-        <!-- Table displaying student data -->
-        <div class="w-full h-[505px] mx-2 bg-white rounded-xl shadow border-2 overflow-scroll overflow-x-hidden">
-            <table border="1" cellpadding="10" cellspacing="0" class="w-full text-center border border-collapse">
+        <div class="w-full h-[520px] mx-4 bg-white text-left rounded-xl shadow border-2 overflow-scroll overflow-x-hidden">
+            <table border="1" cellpadding="10" cellspacing="0" class="w-full border border-collapse">
                 <thead>
-                    <tr>
+                    <tr class="">
                         <th>STT</th>
-                        <th>MaSV</th>
-                        <th>HoTen</th>
-                        <th>NgaySinh</th>
-                        <th>GioiTinh</th>
-                        <th>DiaChi</th>
+                        <th>Mã SV</th>
+                        <th>Họ Tên</th>
+                        <th>Ngày Sinh</th>
+                        <th>Giới Tính</th>
+                        <th>Địa Chỉ</th>
                         <th>Email</th>
-                        <th>Sdt</th>
-                        <th>AnhSV</th>
-                        <th>MaLop</th>
+                        <th>SĐT</th>
+                        <th>Ảnh</th>
+                        <th>Lớp</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php if ($sinhvienList && $sinhvienList->num_rows > 0): ?>
-                        
                         <?php $stt=1; foreach ($sinhvienList as $sinhvien): ?>
-                            <tr class="border-2">
+                            <tr title="Ấn vào xem chi tiết" class="border-2 cursor-pointer hover:bg-gray-200" onclick="window.location.href='StudentDetail.php?MaSV=<?php echo $sinhvien['MaSV']; ?>'">
                                 <td class="border"><?php echo $stt; ?></td>
                                 <td><?php echo $sinhvien['MaSV']; ?></td>
                                 <td><?php echo $sinhvien['HoTen']; ?></td>

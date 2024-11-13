@@ -38,7 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <body class="bg-blue-50 flex justify-center items-center h-screen font-sans">
 
 <div class="bg-white p-8 rounded-lg shadow-lg w-96 text-center">
-    <img src="NTU.jpg" alt="NTU Logo" class="w-20 mx-auto mb-6">
+    <img src="../asset/Images/NTU.jpg" alt="NTU Logo" class="w-20 mx-auto mb-6">
     <h1 class="text-2xl font-bold text-blue-800 mb-2">TRƯỜNG ĐẠI HỌC NHA TRANG</h1>
     <h2 class="text-lg text-blue-600 mb-6">HỆ THỐNG TÍCH HỢP THÔNG TIN</h2>
     

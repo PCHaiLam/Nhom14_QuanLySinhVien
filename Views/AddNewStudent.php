@@ -1,6 +1,15 @@
 <?php 
 session_start();
 require_once __DIR__ . '/../config/db.php';
+
+//sinhvien controller
+
+
+
+
+
+
+
 ?>
 <?php include_once __DIR__ . "/../layout/header.php"; ?>
 <body>
@@ -9,7 +18,7 @@ require_once __DIR__ . '/../config/db.php';
     <div id="" class="flex items-center justify-center">
                 <div class="bg-white p-6 rounded-lg w-[500px] shadow-lg border-2">
                     <h2 class="text-xl font-bold mb-4 text-center">Thêm sinh viên mới</h2>
-                    <form method="POST" action="add_student.php">
+                    <form method="POST" action="">
                         <div class="mb-2">
                             <label class="block font-medium">Mã SV</label>
                             <input type="text" name="MaSV" class="w-full px-3 py-2 border rounded-md" required>

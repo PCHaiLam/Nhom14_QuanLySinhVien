@@ -6,7 +6,6 @@ class Lop {
         $this->conn = $conn;
     }
 
-    // Hàm hiển thị danh sách sinh viên
     public function DanhSach() {
         $sql = "SELECT * FROM lop";
         $result = $this->conn->query($sql);

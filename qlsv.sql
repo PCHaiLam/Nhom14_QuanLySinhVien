@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 13, 2024 at 06:35 AM
+-- Generation Time: Nov 13, 2024 at 01:06 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -29,9 +29,9 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `giaovien` (
   `MaGV` varchar(20) NOT NULL,
-  `HoTen` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `HoTen` varchar(100) NOT NULL,
   `Email` varchar(100) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Dumping data for table `giaovien`
@@ -53,10 +53,10 @@ INSERT INTO `giaovien` (`MaGV`, `HoTen`, `Email`) VALUES
 
 CREATE TABLE `hocki` (
   `MaHocKi` varchar(15) NOT NULL,
-  `TenHocKi` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `TenHocKi` varchar(50) NOT NULL,
   `NgayBatDau` date DEFAULT NULL,
   `NgayKetThuc` date DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Dumping data for table `hocki`
@@ -75,8 +75,8 @@ INSERT INTO `hocki` (`MaHocKi`, `TenHocKi`, `NgayBatDau`, `NgayKetThuc`) VALUES
 
 CREATE TABLE `khoa` (
   `MaKhoa` varchar(10) NOT NULL,
-  `TenKhoa` varchar(100)  CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `TenKhoa` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Dumping data for table `khoa`
@@ -95,9 +95,9 @@ INSERT INTO `khoa` (`MaKhoa`, `TenKhoa`) VALUES
 
 CREATE TABLE `lop` (
   `MaLop` varchar(10) NOT NULL,
-  `TenLop` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `TenLop` varchar(100) NOT NULL,
   `MaKhoa` varchar(10) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Dumping data for table `lop`
@@ -122,7 +122,7 @@ CREATE TABLE `lophocphan` (
   `MaMonHoc` varchar(10) DEFAULT NULL,
   `DiaDiem` varchar(100) DEFAULT NULL,
   `MaGV` varchar(20) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Dumping data for table `lophocphan`
@@ -145,10 +145,10 @@ INSERT INTO `lophocphan` (`MaLopHocPhan`, `MaMonHoc`, `DiaDiem`, `MaGV`) VALUES
 
 CREATE TABLE `monhoc` (
   `MaHP` varchar(10) NOT NULL,
-  `TenHP` varchar(100)  CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `TenHP` varchar(100) NOT NULL,
   `SoTinChi` int(11) NOT NULL,
   `DonGia` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Dumping data for table `monhoc`
@@ -170,7 +170,7 @@ CREATE TABLE `quantri` (
   `TaiKhoan` varchar(20) NOT NULL,
   `MatKhau` varchar(20) NOT NULL,
   `Quyen` tinyint(1) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Dumping data for table `quantri`
@@ -194,15 +194,15 @@ INSERT INTO `quantri` (`TaiKhoan`, `MatKhau`, `Quyen`) VALUES
 
 CREATE TABLE `sinhvien` (
   `MaSV` varchar(20) NOT NULL,
-  `HoTen` varchar(100)  CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `HoTen` varchar(100) NOT NULL,
   `NgaySinh` date DEFAULT NULL,
   `GioiTinh` varchar(10) NOT NULL,
-  `DiaChi` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `DiaChi` varchar(200) DEFAULT NULL,
   `Email` varchar(100) DEFAULT NULL,
   `SDT` varchar(15) DEFAULT NULL,
   `AnhSV` varchar(100) NOT NULL,
   `MaLop` varchar(10) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Dumping data for table `sinhvien`
@@ -234,7 +234,7 @@ CREATE TABLE `sinhvien_lophocphan` (
   `Diem` float DEFAULT NULL,
   `MaHocKi` varchar(15) NOT NULL,
   `NgayDongHocPhi` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Dumping data for table `sinhvien_lophocphan`

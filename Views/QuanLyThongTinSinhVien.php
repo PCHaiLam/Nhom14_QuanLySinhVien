@@ -5,9 +5,9 @@ include_once __DIR__ . '/../Controllers/SinhVienController.php';
 include_once __DIR__ . '/../Controllers/KhoaController.php';
 include_once __DIR__ . '/../Controllers/LopController.php';
 
-$svController = new SinhVien($conn);
-$khoaController = new Khoa($conn);
-$lopController = new Lop($conn);
+$svController = new SinhVienController($conn);
+$khoaController = new KhoaController($conn);
+$lopController = new LopController($conn);
 
 // Kiểm tra và xử lý yêu cầu AJAX 
 if (isset($_GET['maKhoa'])) { 
@@ -18,9 +18,12 @@ if (isset($_GET['maKhoa'])) {
             echo "<option value=\"" . $lop['MaLop'] . "\">" . htmlspecialchars($lop['TenLop']) . "</option>"; 
         } 
     } else { 
-        echo "<option value=\"\">Không có lớp nào</option>"; 
+        $result2 = $lopController->DanhSach(); 
+        while($lop = $result2->fetch_assoc()) {
+            echo "<option value=\"" . $lop['MaLop'] . "\">" . htmlspecialchars($lop['TenLop']) . "</option>"; 
+        }
     } 
-    exit; // Ngừng thực hiện phần còn lại của tệp 
+    exit; // Ngừng thực hiện phần còn lại
 }
 
 // Kiểm tra và xử lý yêu cầu tìm kiếm POST
@@ -40,7 +43,7 @@ $sinhvienList = $svController->timKiem($maKhoa, $maLop);
     <div class="my-6 mx-2 min-h-[520px] flex">
         <div class="flex flex-col items-center">
             <!-- thêm button thêm sinh viên -->
-            <button onclick="window.location.href='AddNewStudent.php'" onclick="openModal()" class="mb-4 px-4 py-2 bg-blue-500 text-white font-semibold rounded hover:bg-blue-600">
+            <button onclick="window.location.href='AddNewStudent.php'" class="mb-4 px-4 py-2 bg-blue-500 text-white font-semibold rounded hover:bg-blue-600">
                 Thêm sinh viên
             </button>
 

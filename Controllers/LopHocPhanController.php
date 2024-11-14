@@ -1,5 +1,5 @@
 <?php
-class Khoa {
+class LopHocPhanController {
     protected $conn;
 
     public function __construct($conn) {

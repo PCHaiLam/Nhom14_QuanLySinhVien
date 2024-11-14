@@ -1,5 +1,5 @@
 <?php
-class SinhVien
+class SinhVienController
 {
     protected $conn;
 
@@ -38,14 +38,19 @@ class SinhVien
         $result = $this->conn->query($sql);
         return $result;
     }
-     public function TaoMaSoSinhVien($maKhoa) {
+     public function TaoMaSoSinhVien($maLop) {
+        $sqlMaKhoa = "SELECT MaKhoa FROM lop WHERE MaLop = '$maLop'";
+        $resultMaKhoa = $this->conn->query($sqlMaKhoa);
+        $rowKhoa = $resultMaKhoa->fetch_assoc();
+        $maKhoa = $rowKhoa['MaKhoa'];
+
         // Lấy 2 ký tự đầu (năm hiện tại - năm thành lập trường)
         $namHienTai = date("Y");
         $namThanhLap = 1959;
         $prefixNam = str_pad($namHienTai - $namThanhLap, 2, "0", STR_PAD_LEFT); // VD: 65
 
         // Lấy 2 ký tự đầu của mã khoa
-        $prefixKhoa = str_pad(substr($maKhoa, 0, 2), 2, "0", STR_PAD_LEFT); // VD: 00,01,02
+        $prefixKhoa = explode('-', $maKhoa)[0]; // VD: 01,02,...
 
         // Lấy 4 ký tự cuối (mã SV cao nhất hiện tại + 1)
         $sql = "SELECT MaSV FROM sinhvien WHERE MaSV LIKE '$prefixNam$prefixKhoa%' ORDER BY MaSV DESC LIMIT 1";
@@ -58,7 +63,6 @@ class SinhVien
             $nextId = str_pad($currentId + 1, 4, "0", STR_PAD_LEFT); // Tăng 1, bổ sung thêm 0 nếu cần
         }
 
-        // Ghép các phần lại thành MSSV hoàn chỉnh
         return $prefixNam . $prefixKhoa . $nextId; // 
     }
 
@@ -69,9 +73,9 @@ class SinhVien
         $sql = "INSERT INTO sinhvien (MaSV, HoTen, NgaySinh, GioiTinh, DiaChi, Email, Sdt, AnhSV, MaLop) VALUES ('$maSV', '$hoTen', '$ngaySinh', '$gioiTinh', '$diaChi', '$email', '$sdt', '$anhSV', '$maLop')";
 
         if ($this->conn->query($sql) === TRUE) {
-             echo "<p style='color: green; text-align: center;'>Thêm sinh viên thành công!</p>";
+            return "Thêm sinh viên thành công!";
         } else {
-            echo "<p style='color: red; text-align: center;'>Thêm sinh viên thất bại: " . mysqli_error($conn) . "</p>";
+            return "Thêm sinh viên thất bại: " . $this->conn->error;
         }
     }
     // Hàm xóa sinh viên

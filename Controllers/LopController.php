@@ -1,5 +1,5 @@
 <?php
-class Lop {
+class LopController {
     protected $conn;
 
     public function __construct($conn) {

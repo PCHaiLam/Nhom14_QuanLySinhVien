@@ -9,23 +9,6 @@ $svController = new SinhVienController($conn);
 $khoaController = new KhoaController($conn);
 $lopController = new LopController($conn);
 
-// Kiểm tra và xử lý yêu cầu AJAX 
-if (isset($_GET['maKhoa'])) { 
-    $maKhoa = $_GET['maKhoa']; 
-    $result = $lopController->DanhSachId($maKhoa); 
-    if ($result->num_rows > 0) { 
-        while ($lop = $result->fetch_assoc()) { 
-            echo "<option value=\"" . $lop['MaLop'] . "\">" . htmlspecialchars($lop['TenLop']) . "</option>"; 
-        } 
-    } else { 
-        $result2 = $lopController->DanhSach(); 
-        while($lop = $result2->fetch_assoc()) {
-            echo "<option value=\"" . $lop['MaLop'] . "\">" . htmlspecialchars($lop['TenLop']) . "</option>"; 
-        }
-    } 
-    exit; // Ngừng thực hiện phần còn lại
-}
-
 // Kiểm tra và xử lý yêu cầu tìm kiếm POST
 $maKhoa = isset($_GET['khoaOption']) ? $_GET['khoaOption'] : ''; 
 $maLop = isset($_GET['lopOption']) ? $_GET['lopOption'] : '';
@@ -43,7 +26,7 @@ $sinhvienList = $svController->timKiem($maKhoa, $maLop);
     <div class="my-6 mx-2 min-h-[520px] flex">
         <div class="flex flex-col items-center">
             <!-- thêm button thêm sinh viên -->
-            <button onclick="window.location.href='AddNewStudent.php'" class="mb-4 px-4 py-2 bg-blue-500 text-white font-semibold rounded hover:bg-blue-600">
+            <button onclick="window.location.href='Student_Create.php'" class="mb-4 px-4 py-2 bg-blue-500 text-white font-semibold rounded hover:bg-blue-600">
                 Thêm sinh viên
             </button>
 
@@ -51,7 +34,7 @@ $sinhvienList = $svController->timKiem($maKhoa, $maLop);
             <form method="GET" class="h-max w-max px-5 py-4 flex flex-col bg-white rounded-xl shadow border-2 mt-4">
                 <label class="grid grid-cols-2">
                     <span>Khoa</span>
-                    <select id="khoaOption" name="option" class="col-span-2 p-2 border rounded-md" onchange="loadLopByKhoa()">
+                    <select id="khoaOption" name="khoaOption" class="col-span-2 p-2 border rounded-md">
                         <option value=""></option>
                     <?php
                         // Kiểm tra nếu có dữ liệu khoa
@@ -108,7 +91,7 @@ $sinhvienList = $svController->timKiem($maKhoa, $maLop);
                 <tbody>
                     <?php if ($sinhvienList && $sinhvienList->num_rows > 0): ?>
                         <?php $stt=1; foreach ($sinhvienList as $sinhvien): ?>
-                            <tr title="Ấn vào xem chi tiết" class="border-2 cursor-pointer hover:bg-gray-200" onclick="window.location.href='StudentDetail.php?MaSV=<?php echo $sinhvien['MaSV']; ?>'">
+                            <tr title="Ấn vào xem chi tiết" class="border-2 cursor-pointer hover:bg-gray-200" onclick="window.location.href='Student_Detail.php?MaSV=<?php echo $sinhvien['MaSV']; ?>'">
                                 <td class="border"><?php echo $stt; ?></td>
                                 <td><?php echo $sinhvien['MaSV']; ?></td>
                                 <td><?php echo $sinhvien['HoTen']; ?></td>

@@ -6,9 +6,8 @@ include_once __DIR__ . '/../Controllers/LopController.php';
 include_once __DIR__ . '/../Controllers/SinhVienController.php';
 
 $svController = new SinhVienController($conn);
-$khoaController = new KhoaController($conn);
+// $khoaController = new KhoaController($conn);
 $lopController = new LopController($conn);
-
 
 if (isset($_GET['Confirm'])) {
     $maLop = isset($_GET['lopOption']) ? $_GET['lopOption'] : '';
@@ -16,15 +15,16 @@ if (isset($_GET['Confirm'])) {
 }
 
 if (isset($_POST['ThemSV'])) {
+    $maLop = isset($_GET['lopOption']) ? $_GET['lopOption'] : null;
+
     $maSV = $_POST['maSV'];
     $hoTen = $_POST['hoTen'];
     $ngaySinh = $_POST['ngaySinh'];
     $gioiTinh = $_POST['gioiTinh'];
     $diaChi = $_POST['diaChi'];
-    $email = $_POST['email'];
+    $email = $svController->EmailTuDong($hoTen,$maLop);
     $sdt = $_POST['Sdt'];
     $anhSV = $_FILES['AnhSV'];
-    $maLop = isset($_GET['lopOption']) ? $_GET['lopOption'] : null;
 
     // Kiểm tra nếu có ảnh được tải lên
     if ($anhSV['error'] == 0) {
@@ -51,16 +51,11 @@ if (isset($_POST['ThemSV'])) {
         $message = $svController->ThemSinhVien($maSV, $hoTen, $ngaySinh, $gioiTinh, $diaChi, $email, $sdt, '', $maLop); // Truyền giá trị ảnh là rỗng
     }
 }
-// Kiểm tra và xử lý yêu cầu tìm kiếm POST
-$maKhoa = isset($_GET['khoaOption']) ? $_GET['khoaOption'] : '';
-$maLop = isset($_GET['lopOption']) ? $_GET['lopOption'] : '';
 
 // Lấy danh sách sinh viên, khoa, lớp
-$khoaList = $khoaController->DanhSach();
+// $khoaList = $khoaController->DanhSach();
 $lopList = $lopController->DanhSach();
 $sinhvienList = $svController->DanhSach();
-
-
 ?>
 <?php include_once __DIR__ . "/../layout/header.php"; ?>
 
@@ -72,7 +67,7 @@ $sinhvienList = $svController->DanhSach();
                 <h2 class="text-xl font-bold mb-4 text-center">Thêm sinh viên mới</h2>
                 <!-- xác nhận lớp trước để hiển thị đúng MaSV -->
                 <form method="GET" action="" class="grid grid-cols-3 gap-4">
-                    <div class="grid grid-cols-2">
+                    <!-- <div class="grid grid-cols-2">
                         <label class="block font-medium">Khoa</label>
                         <select id="khoaOption" name="khoaOption" class="col-span-2 p-2 border rounded-md"
                             onchange="loadLopByKhoa()">
@@ -91,7 +86,7 @@ $sinhvienList = $svController->DanhSach();
                             }
                             ?>
                         </select>
-                    </div>
+                    </div> -->
 
                     <div class="grid grid-cols-2">
                         <label class="block font-medium">Lớp</label>
@@ -147,7 +142,7 @@ $sinhvienList = $svController->DanhSach();
                     </div>
                     <div class="">
                         <label class="block font-medium">Email</label>
-                        <input type="email" name="email" class="w-full px-3 py-2 border rounded-md" required>
+                        <input type="email" name="email" class="w-full px-3 py-2 border rounded-md bg-gray-200" value="Email sẽ được tạo tự động" disabled>
                     </div>
                     <div class="">
                         <label class="block font-medium">SĐT</label>

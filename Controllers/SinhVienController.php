@@ -24,7 +24,7 @@ class SinhVienController
                 INNER JOIN khoa ON lop.MaKhoa = khoa.MaKhoa";
         
         $dieukien = array();
-        if (!empty($maKhoa) && $maKhoa !== "allKhoa") {
+        if (!empty($maKhoa) && $maKhoa !== " ") {
             $dieukien[] = "khoa.MaKhoa = '$maKhoa'";
         }
         if (!empty($maLop)) {
@@ -38,42 +38,13 @@ class SinhVienController
         $result = $this->conn->query($sql);
         return $result;
     }
-     public function TaoMaSoSinhVien($maLop) {
-        $sqlMaKhoa = "SELECT MaKhoa FROM lop WHERE MaLop = '$maLop'";
-        $resultMaKhoa = $this->conn->query($sqlMaKhoa);
-        $rowKhoa = $resultMaKhoa->fetch_assoc();
-        $maKhoa = $rowKhoa['MaKhoa'];
-
-        // Lấy 2 ký tự đầu (năm hiện tại - năm thành lập trường)
-        $namHienTai = date("Y");
-        $namThanhLap = 1959;
-        $prefixNam = str_pad($namHienTai - $namThanhLap, 2, "0", STR_PAD_LEFT); // VD: 65
-
-        // Lấy 2 ký tự đầu của mã khoa
-        $prefixKhoa = explode('-', $maKhoa)[0]; // VD: 01,02,...
-
-        // Lấy 4 ký tự cuối (mã SV cao nhất hiện tại + 1)
-        $sql = "SELECT MaSV FROM sinhvien WHERE MaSV LIKE '$prefixNam$prefixKhoa%' ORDER BY MaSV DESC LIMIT 1";
-        $result = $this->conn->query($sql);
-        $nextId = "0001"; // Mặc định mã mới bắt đầu từ 0001
-        if ($result && $result->num_rows > 0) {
-            $row = $result->fetch_assoc();
-            $lastMaSV = $row['MaSV']; // VD: 65010001
-            $currentId = substr($lastMaSV, -4); // Lấy 4 ký tự cuối
-            $nextId = str_pad($currentId + 1, 4, "0", STR_PAD_LEFT); // Tăng 1, bổ sung thêm 0 nếu cần
-        }
-
-        return $prefixNam . $prefixKhoa . $nextId; // 
-    }
-
-
     // Hàm thêm sinh viên
     public function ThemSinhVien($maSV, $hoTen, $ngaySinh, $gioiTinh, $diaChi, $email, $sdt, $anhSV, $maLop)
     {
         $sql = "INSERT INTO sinhvien (MaSV, HoTen, NgaySinh, GioiTinh, DiaChi, Email, Sdt, AnhSV, MaLop) VALUES ('$maSV', '$hoTen', '$ngaySinh', '$gioiTinh', '$diaChi', '$email', '$sdt', '$anhSV', '$maLop')";
 
         if ($this->conn->query($sql) === TRUE) {
-            header("Location: QuanLyThongTinSinhVien.php");
+            header("Location: Student_List.php");
             exit;
         } else {
             return "Thêm sinh viên thất bại: " . $this->conn->error;
@@ -108,6 +79,61 @@ class SinhVienController
             return "Lỗi khi xóa sinh viên: " . $this->conn->error;
         }
     }
+    public function TaoMaSoSinhVien($maLop) {
+        $sqlMaKhoa = "SELECT MaKhoa FROM lop WHERE MaLop = '$maLop'";
+        $resultMaKhoa = $this->conn->query($sqlMaKhoa);
+        $rowKhoa = $resultMaKhoa->fetch_assoc();
+        $maKhoa = $rowKhoa['MaKhoa'];
+
+        // Lấy 2 ký tự đầu (năm hiện tại - năm thành lập trường)
+        $namHienTai = date("Y");
+        $namThanhLap = 1959;
+        $prefixNam = str_pad($namHienTai - $namThanhLap, 2, "0", STR_PAD_LEFT); // VD: 65
+
+        // Lấy 2 ký tự đầu của mã khoa
+        $prefixKhoa = explode('-', $maKhoa)[0]; // VD: 01,02,...
+
+        // Lấy 4 ký tự cuối (mã SV cao nhất hiện tại + 1)
+        $sql = "SELECT MaSV FROM sinhvien WHERE MaSV LIKE '$prefixNam$prefixKhoa%' ORDER BY MaSV DESC LIMIT 1";
+        $result = $this->conn->query($sql);
+        $nextId = "0001"; // Mặc định mã mới bắt đầu từ 0001
+        if ($result && $result->num_rows > 0) {
+            $row = $result->fetch_assoc();
+            $lastMaSV = $row['MaSV']; // VD: 65010001
+            $currentId = substr($lastMaSV, -4); // Lấy 4 ký tự cuối
+            $nextId = str_pad($currentId + 1, 4, "0", STR_PAD_LEFT); // Tăng 1, bổ sung thêm 0 nếu cần
+        }
+
+        return $prefixNam . $prefixKhoa . $nextId; // 
+    }
+    public function EmailTuDong($hoTen, $maLop) {
+        // Tách họ tên thành các từ
+        $tenParts = explode(" ", trim($hoTen));
+    
+        // Lấy phần tên (phần cuối cùng trong họ tên)
+        $ten = strtolower(array_pop($tenParts));
+    
+        // Lấy ký tự đầu tiên của từng phần còn lại (họ và tên đệm)
+        $hoTenDem = "";
+        foreach ($tenParts as $part) {
+            $hoTenDem .= strtolower(substr($part, 0, 1));
+        }
+    
+        // Lấy 2 ký tự đầu (năm hiện tại - năm thành lập trường)
+        $namHienTai = date("Y");
+        $namThanhLap = 1959;
+        $prefixNam = str_pad($namHienTai - $namThanhLap, 2, "0", STR_PAD_LEFT); // VD: 65
+
+        //Lấy ngành
+        $nganh = explode("-", trim($maLop))[1];
+
+
+        // Tạo email theo định dạng
+        $email = "{$ten}.{$hoTenDem}.{$prefixNam}{$nganh}@ntu.edu.vn";
+    
+        return $email;
+    }
+    
     //Tính tổng sinh viên để phân trang
     public function countSinhVien()
     {

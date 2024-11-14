@@ -13,11 +13,7 @@ class LopController {
         return $result;
     }
     public function DanhSachId($maKhoa) { 
-        if ($maKhoa != 'allKhoa') { 
             $sql = "SELECT * FROM lop WHERE MaKhoa = '$maKhoa'"; 
-        } else { 
-            $sql = "SELECT * FROM lop"; 
-        } 
         return $this->conn->query($sql); 
     }
 }

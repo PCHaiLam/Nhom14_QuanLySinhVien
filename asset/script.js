@@ -1,12 +1,13 @@
 function loadLopByKhoa() {
-    var maKhoa = document.getElementById("khoaOption").value;
+    var khoaId = document.getElementById('khoaOption').value;
 
-    // Gửi yêu cầu AJAX tới server
+    // Gửi yêu cầu AJAX tới chính file PHP hiện tại
     var xhr = new XMLHttpRequest();
-    xhr.open("GET", "QuanLyThongTinSinhVien.php?maKhoa=" + maKhoa, true);
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState == 4 && xhr.status == 200) {
-            document.getElementById("lopOption").innerHTML = xhr.responseText;
+    xhr.open("GET", "Student_Create.php?khoaOption=" + khoaId, true); // Sử dụng file hiện tại
+    xhr.onload = function() {
+        if (xhr.status === 200) {
+            // Cập nhật danh sách lớp vào phần tử #lopOption
+            document.getElementById('lopOption').innerHTML = xhr.responseText;
         }
     };
     xhr.send();

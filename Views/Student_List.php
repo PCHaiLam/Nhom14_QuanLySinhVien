@@ -12,11 +12,12 @@ $lopController = new LopController($conn);
 // Kiểm tra và xử lý yêu cầu tìm kiếm POST
 $maKhoa = isset($_GET['khoaOption']) ? $_GET['khoaOption'] : ''; 
 $maLop = isset($_GET['lopOption']) ? $_GET['lopOption'] : '';
+$search = isset($_GET['search']) ? $_GET['search'] : '';
 
 // Lấy danh sách sinh viên, khoa, lớp
 $khoaList = $khoaController->DanhSach();
 $lopList = $lopController->DanhSach();
-$sinhvienList = $svController->timKiem($maKhoa, $maLop);
+$sinhvienList = $svController->timKiem($maKhoa, $maLop, $search);
 
 ?>
 
@@ -64,7 +65,7 @@ $sinhvienList = $svController->timKiem($maKhoa, $maLop);
                     </select>
                 </label>
                 <h1 class="font-bold text-xl py-2">Tìm kiếm</h1>
-                <input type="text" class="px-4 py-2 border rounded-md" placeholder="Tìm kiếm mssv, tên" id="searchInput">
+                <input type="text" name="search" class="px-4 py-2 border rounded-md" placeholder="Tìm kiếm mssv, tên" id="searchInput">
                 <div class="text-center text-white">
                     <button type="submit" class="border-2 px-3 mt-2 rounded bg-gray-400 hover:bg-gray-500">Tìm</button>
                 </div>

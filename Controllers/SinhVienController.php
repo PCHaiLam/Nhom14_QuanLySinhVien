@@ -16,28 +16,44 @@ class SinhVienController
 
         return $result;
     }
-    // Hàm tìm kiếm sinh viên theo MaKhoa và MaLop 
-    public function timKiem($maKhoa = null, $maLop = null)
+    public function timKiem($maKhoa = null, $maLop = null, $search = null)
     {
+        // Câu truy vấn cơ bản
         $sql = "SELECT sinhvien.* FROM sinhvien 
                 INNER JOIN lop ON sinhvien.MaLop = lop.MaLop
                 INNER JOIN khoa ON lop.MaKhoa = khoa.MaKhoa";
         
+        // Mảng chứa điều kiện tìm kiếm
         $dieukien = array();
+        
+        // Kiểm tra và thêm điều kiện MaKhoa nếu có
         if (!empty($maKhoa) && $maKhoa !== " ") {
             $dieukien[] = "khoa.MaKhoa = '$maKhoa'";
         }
+        
+        // Kiểm tra và thêm điều kiện MaLop nếu có
         if (!empty($maLop)) {
             $dieukien[] = "sinhvien.MaLop = '$maLop'";
         }
         
+        // Kiểm tra và thêm điều kiện tìm kiếm text (MaSV hoặc TenSV)
+        if (!empty($search)) {
+            $search = "%" . $search . "%"; // Thêm dấu % để tìm kiếm theo phần chuỗi
+            $dieukien[] = "(sinhvien.MaSV LIKE '$search' OR sinhvien.HoTen LIKE '$search')";
+        }
+        
+        // Nếu có điều kiện tìm kiếm, thêm phần WHERE vào câu truy vấn
         if (count($dieukien) > 0) {
             $sql .= " WHERE " . implode(' AND ', $dieukien);
         }
 
+        // Thực thi câu truy vấn
         $result = $this->conn->query($sql);
+        
+        // Trả về kết quả
         return $result;
     }
+
     // Hàm thêm sinh viên
     public function ThemSinhVien($maSV, $hoTen, $ngaySinh, $gioiTinh, $diaChi, $email, $sdt, $anhSV, $maLop)
     {
@@ -183,8 +199,6 @@ class SinhVienController
     
         return $email;
     }
-    
-    
     
     //Tính tổng sinh viên để phân trang
     public function countSinhVien()

@@ -199,44 +199,5 @@ class SinhVienController
     
         return $email;
     }
-    
-    //Tính tổng sinh viên để phân trang
-    public function countSinhVien()
-    {
-        $sql = "SELECT COUNT(*) as total FROM sinhvien";
-        $result = $this->conn->query($sql);
-        $row = $result->fetch_assoc();
-
-        return $row['total'];
-    }
-    //Phân trang và thanh điều hướng trang
-    function PhanTrang($tongBanGhi, $currentPage, $limit)
-    {
-        $totalPages = ceil($tongBanGhi / $limit);
-        $pagination = "";
-
-        if ($totalPages > 1) {
-            $pagination .= '<div class="pagination">';
-            // Trang trước
-            if ($currentPage > 1) {
-                $pagination .= '<a href="?page=' . ($currentPage - 1) . '">&laquo;</a>';
-            }
-            // Liên kết trang
-            for ($i = 1; $i <= $totalPages; $i++) {
-                if ($i == $currentPage) {
-                    $pagination .= '<span class="current-page">' . $i . '</span>';
-                } else {
-                    $pagination .= '<a href="?page=' . $i . '">' . $i . '</a>';
-                }
-            }
-            // Trang sau
-            if ($currentPage < $totalPages) {
-                $pagination .= '<a href="?page=' . ($currentPage + 1) . '">&raquo;</a>';
-            }
-
-            $pagination .= '</div>';
-        }
-        return $pagination;
-    }
 }
 ?>

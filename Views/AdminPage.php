@@ -12,14 +12,14 @@ $quantriController = new QuanTriController($conn);
             <a href="Student_List.php" class="menu-item bg-blue-600 text-white flex justify-center items-center h-36 rounded-lg font-bold text-center hover:bg-blue-800 transition-colors">
                 Thông tin sinh viên
             </a>
+            <a href="Subjects_List.php" class="menu-item bg-blue-600 text-white flex justify-center items-center h-36 rounded-lg font-bold text-center hover:bg-blue-800 transition-colors">
+                Môn học
+            </a>
             <a href="Mark_SV_LHP.php" class="menu-item bg-blue-600 text-white flex justify-center items-center h-36 rounded-lg font-bold text-center hover:bg-blue-800 transition-colors">
                 Điểm
             </a>
-            <a href="Mark_SV_LHP.php" class="menu-item bg-blue-600 text-white flex justify-center items-center h-36 rounded-lg font-bold text-center hover:bg-blue-800 transition-colors">
+            <a href="Subject_Class.php" class="menu-item bg-blue-600 text-white flex justify-center items-center h-36 rounded-lg font-bold text-center hover:bg-blue-800 transition-colors">
                 Lớp học phần
-            </a>
-            <a class="menu-item bg-blue-600 text-white flex justify-center items-center h-36 rounded-lg font-bold text-center hover:bg-blue-800 transition-colors">
-                Học kì
             </a>
         </div>
     </div>

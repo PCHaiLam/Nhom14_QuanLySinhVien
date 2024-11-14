@@ -4,6 +4,7 @@ require_once __DIR__ . '/../config/db.php';
 include_once __DIR__ . '/../Controllers/KhoaController.php';
 include_once __DIR__ . '/../Controllers/LopController.php';
 include_once __DIR__ . '/../Controllers/SinhVienController.php';
+
 $svController = new SinhVienController($conn);
 $khoaController = new KhoaController($conn);
 $lopController = new LopController($conn);

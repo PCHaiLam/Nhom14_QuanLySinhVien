@@ -14,6 +14,8 @@ if (isset($_GET['Confirm'])) {
     $maSV = $svController->TaoMaSoSinhVien($maLop);
 }
 
+$message="";
+
 if (isset($_POST['ThemSV'])) {
     $maLop = isset($_GET['lopOption']) ? $_GET['lopOption'] : null;
 
@@ -31,21 +33,20 @@ if (isset($_POST['ThemSV'])) {
         // Kiểm tra định dạng ảnh (chỉ chấp nhận jpg, jpeg, png)
         $allowedTypes = ['image/jpeg', 'image/png', 'image/jpg'];
         if (!in_array($anhSV['type'], $allowedTypes)) {
-            echo "Chỉ chấp nhận file ảnh với định dạng JPG, JPEG, PNG.";
-            exit();
+            $message = "Chỉ chấp nhận file ảnh với định dạng JPG, JPEG, PNG.";
         }
 
         // Kiểm tra kích thước ảnh (giới hạn 2MB)
         $maxSize = 2 * 1024 * 1024;  // 2MB
         if ($anhSV['size'] > $maxSize) {
-            echo "Kích thước ảnh vượt quá 2MB.";
-            exit();
+            $message = "Kích thước ảnh vượt quá 2MB.";
         }
 
         // Lấy tên gốc của ảnh
         $fileName = strtolower(basename($anhSV['name']));
         $fileName = preg_replace("/[^a-z0-9\.]/", "_", $fileName);  // Chỉ giữ lại chữ cái, số và dấu chấm (.)
-        
+        $full_path = "../asset/Images/" . $fileName;
+        move_uploaded_file($anhSV['tmp_name'], $full_path);
         $message = $svController->ThemSinhVien($maSV, $hoTen, $ngaySinh, $gioiTinh, $diaChi, $email, $sdt, $fileName , $maLop);
     } else {
         $message = $svController->ThemSinhVien($maSV, $hoTen, $ngaySinh, $gioiTinh, $diaChi, $email, $sdt, '', $maLop); // Truyền giá trị ảnh là rỗng

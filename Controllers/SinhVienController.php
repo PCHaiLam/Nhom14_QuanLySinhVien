@@ -107,32 +107,84 @@ class SinhVienController
         return $prefixNam . $prefixKhoa . $nextId; // 
     }
     public function EmailTuDong($hoTen, $maLop) {
-        // Tách họ tên thành các từ
+        // Hàm loại bỏ dấu tiếng Việt thủ công
+        function removeVietnameseAccents($str) {
+            $vietnameseAccents = array(
+                'à', 'á', 'ả', 'ã', 'ạ', 'â', 'ầ', 'ấ', 'ẩ', 'ẫ', 'ậ', 'ă', 'ằ', 'ắ', 'ẳ', 'ẵ', 'ặ',
+                'è', 'é', 'ẻ', 'ẽ', 'ẹ', 'ê', 'ề', 'ế', 'ể', 'ễ', 'ệ',
+                'ì', 'í', 'ỉ', 'ĩ', 'ị',
+                'ò', 'ó', 'ỏ', 'õ', 'ọ', 'ô', 'ồ', 'ố', 'ổ', 'ỗ', 'ộ', 'ơ', 'ờ', 'ớ', 'ở', 'ỡ', 'ợ',
+                'ù', 'ú', 'ủ', 'ũ', 'ụ', 'ư', 'ừ', 'ứ', 'ử', 'ữ', 'ự',
+                'ỳ', 'ý', 'ỷ', 'ỹ', 'ỵ',
+                'đ',
+                'À', 'Á', 'Ả', 'Ã', 'Ạ', 'Â', 'Ầ', 'Ấ', 'Ẩ', 'Ẫ', 'Ậ', 'Ă', 'Ằ', 'Ắ', 'Ẳ', 'Ẵ', 'Ặ',
+                'È', 'É', 'Ẻ', 'Ẽ', 'Ẹ', 'Ê', 'Ề', 'Ế', 'Ể', 'Ễ', 'Ệ',
+                'Ì', 'Í', 'Ỉ', 'Ĩ', 'Ị',
+                'Ò', 'Ó', 'Ỏ', 'Õ', 'Ọ', 'Ô', 'Ồ', 'Ố', 'Ổ', 'Ỗ', 'Ộ', 'Ơ', 'Ờ', 'Ớ', 'Ở', 'Ỡ', 'Ợ',
+                'Ù', 'Ú', 'Ủ', 'Ũ', 'Ụ', 'Ư', 'Ừ', 'Ứ', 'Ử', 'Ữ', 'Ự',
+                'Ỳ', 'Ý', 'Ỷ', 'Ỹ', 'Ỵ',
+                'Đ'
+            );
+    
+            $nonAccented = array(
+                'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a',
+                'e', 'e', 'e', 'e', 'e', 'e', 'e', 'e', 'e', 'e', 'e',
+                'i', 'i', 'i', 'i', 'i',
+                'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o',
+                'u', 'u', 'u', 'u', 'u', 'u', 'u', 'u', 'u', 'u', 'u',
+                'y', 'y', 'y', 'y', 'y',
+                'd',
+                'A', 'A', 'A', 'A', 'A', 'A', 'A', 'A', 'A', 'A', 'A', 'A', 'A', 'A', 'A', 'A', 'A',
+                'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E',
+                'I', 'I', 'I', 'I', 'I',
+                'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O',
+                'U', 'U', 'U', 'U', 'U', 'U', 'U', 'U', 'U', 'U', 'U',
+                'Y', 'Y', 'Y', 'Y', 'Y',
+                'D'
+            );
+    
+            return str_replace($vietnameseAccents, $nonAccented, $str);
+        }
+    
+        // Tách họ tên thành các từ và loại bỏ dấu
         $tenParts = explode(" ", trim($hoTen));
+        foreach ($tenParts as &$part) {
+            $part = strtolower(removeVietnameseAccents($part));
+        }
     
         // Lấy phần tên (phần cuối cùng trong họ tên)
-        $ten = strtolower(array_pop($tenParts));
+        $ten = array_pop($tenParts);
     
         // Lấy ký tự đầu tiên của từng phần còn lại (họ và tên đệm)
         $hoTenDem = "";
         foreach ($tenParts as $part) {
-            $hoTenDem .= strtolower(substr($part, 0, 1));
+            $hoTenDem .= substr($part, 0, 1);
         }
     
-        // Lấy 2 ký tự đầu (năm hiện tại - năm thành lập trường)
+        // Tạo tiền tố năm
         $namHienTai = date("Y");
         $namThanhLap = 1959;
-        $prefixNam = str_pad($namHienTai - $namThanhLap, 2, "0", STR_PAD_LEFT); // VD: 65
+        $prefixNam = str_pad($namHienTai - $namThanhLap, 2, "0", STR_PAD_LEFT);
+    
+        $sql = "SELECT MaKhoa FROM lop WHERE MaLop = '$maLop'";
+        $result = $this->conn->query($sql);
 
-        //Lấy ngành
-        $nganh = explode("-", trim($maLop))[1];
-
-
+        $nganh="";
+        // Kiểm tra nếu kết quả tồn tại và lấy giá trị MaKhoa
+        if ($result && $row = $result->fetch_assoc()) {
+            $maKhoa = $row['MaKhoa']; // Lấy mã khoa từ kết quả truy vấn
+            // Tách mã ngành từ mã khoa dựa trên dấu "-"
+            $nganh = strtolower(explode("-", $maKhoa)[1]);
+        }
+    
         // Tạo email theo định dạng
+
         $email = "{$ten}.{$hoTenDem}.{$prefixNam}{$nganh}@ntu.edu.vn";
     
         return $email;
     }
+    
+    
     
     //Tính tổng sinh viên để phân trang
     public function countSinhVien()

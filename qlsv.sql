@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 13, 2024 at 01:06 PM
+-- Generation Time: Nov 14, 2024 at 04:51 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -63,9 +63,18 @@ CREATE TABLE `hocki` (
 --
 
 INSERT INTO `hocki` (`MaHocKi`, `TenHocKi`, `NgayBatDau`, `NgayKetThuc`) VALUES
-('2023-2024_HE', 'Học Kì hè', NULL, NULL),
-('2023-2024_HK1', 'Học Kì 1', NULL, NULL),
-('2023-2024_HK2', 'Học Kì 2', NULL, NULL);
+('2021-2022_HE', 'Học Kỳ hè', '2022-06-01', '2022-08-31'),
+('2021-2022_HK1', 'Học Kỳ 1', '2021-09-01', '2022-01-15'),
+('2021-2022_HK2', 'Học Kỳ 2', '2022-01-16', '2022-05-31'),
+('2022-2023_HE', 'Học Kỳ hè', '2023-06-01', '2023-08-31'),
+('2022-2023_HK1', 'Học Kỳ 1', '2022-09-01', '2023-01-15'),
+('2022-2023_HK2', 'Học Kỳ 2', '2023-01-16', '2023-05-31'),
+('2023-2024_HE', 'Học Kỳ hè', '2024-06-01', '2024-08-31'),
+('2023-2024_HK1', 'Học Kì 1', '2023-09-01', '2024-01-15'),
+('2023-2024_HK2', 'Học Kỳ 2', '2024-01-16', '2024-05-31'),
+('2024-2025_HE', 'Học Kỳ hè', '2025-06-01', '2025-08-31'),
+('2024-2025_HK1', 'Học Kỳ 1', '2024-09-01', '2025-01-15'),
+('2024-2025_HK2', 'Học Kỳ 2', '2025-01-16', '2025-05-31');
 
 -- --------------------------------------------------------
 
@@ -85,7 +94,8 @@ CREATE TABLE `khoa` (
 INSERT INTO `khoa` (`MaKhoa`, `TenKhoa`) VALUES
 ('01-CNTT', 'Công nghệ thông tin'),
 ('02-KT', 'Kinh tế'),
-('03-DL', 'Du lịch');
+('03-DL', 'Du lịch'),
+('04-HTTT', 'Hệ thống thông tin');
 
 -- --------------------------------------------------------
 
@@ -121,21 +131,22 @@ CREATE TABLE `lophocphan` (
   `MaLopHocPhan` varchar(20) NOT NULL,
   `MaMonHoc` varchar(10) DEFAULT NULL,
   `DiaDiem` varchar(100) DEFAULT NULL,
-  `MaGV` varchar(20) DEFAULT NULL
+  `MaGV` varchar(20) DEFAULT NULL,
+  `MaLop` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Dumping data for table `lophocphan`
 --
 
-INSERT INTO `lophocphan` (`MaLopHocPhan`, `MaMonHoc`, `DiaDiem`, `MaGV`) VALUES
-('Android_63.CNTT-1', 'Android', 'G6-101', 'GV04'),
-('Android_63.CNTT-2', 'Android', 'G6-103', 'GV04'),
-('CTDL-GT_63.CNTT-1', 'CTDL-GT', 'G6-203', 'GV03'),
-('CTDL-GT_63.CNTT-2', 'CTDL-GT', 'G6-201', 'GV02'),
-('HDH_63.CNTT-1', 'HDH', 'G6-303', 'GV05'),
-('HDH_63.CNTT-2', 'HDH', 'G6-103', 'GV05'),
-('QLDAPM_63.CNTT-2', 'QL_DAPM', 'G6-102', 'GV02');
+INSERT INTO `lophocphan` (`MaLopHocPhan`, `MaMonHoc`, `DiaDiem`, `MaGV`, `MaLop`) VALUES
+('Android_63.CNTT-1', 'Android', 'G6-101', 'GV04', '63.CNTT-1'),
+('Android_63.CNTT-2', 'Android', 'G6-103', 'GV04', '63.CNTT-2'),
+('CTDL-GT_63.CNTT-1', 'CTDL-GT', 'G6-203', 'GV03', '63.CNTT-1'),
+('CTDL-GT_63.CNTT-2', 'CTDL-GT', 'G6-201', 'GV02', '63.CNTT-2'),
+('HDH_63.CNTT-1', 'HDH', 'G6-303', 'GV05', '63.CNTT-1'),
+('HDH_63.CNTT-2', 'HDH', 'G6-103', 'GV05', '63.CNTT-2'),
+('QLDAPM_63.CNTT-2', 'QL_DAPM', 'G6-102', 'GV02', '63.CNTT-2');
 
 -- --------------------------------------------------------
 
@@ -156,9 +167,35 @@ CREATE TABLE `monhoc` (
 
 INSERT INTO `monhoc` (`MaHP`, `TenHP`, `SoTinChi`, `DonGia`) VALUES
 ('Android', 'Lập trình Android', 3, 450000),
+('CNPM', 'Công nghệ phần mềm', 3, 450000),
+('CSDL', 'Cơ sở dữ liệu', 3, 450000),
 ('CTDL-GT', 'Cấu trúc dữ liệu và giải thuật', 4, 450000),
+('GDQPNN', 'Giáo dục Quốc phòng - An ninh', 12, 220000),
+('GDTC', 'Giáo dục thể chất', 2, 220000),
 ('HDH', 'Hệ điều hành', 3, 450000),
-('QL_DAPM', 'Quản lý dự án phần mềm', 3, 450000);
+('HQT_CSDL', 'Hệ quản trị cơ sở dữ liệu', 3, 450000),
+('KT-TDPM', 'Kiến trúc và thiết kế phần mềm', 3, 450000),
+('KTLT', 'Kỹ thuật lập trình', 3, 450000),
+('KTM', 'Kiến trúc máy tính', 3, 450000),
+('LT-HDT', 'Lập trình hướng đối tượng', 3, 450000),
+('LT-Nhung', 'Lập trình nhúng', 3, 450000),
+('MMT', 'Mạng máy tính', 3, 450000),
+('NMCNTT', 'Nhập môn ngành CNTT', 3, 450000),
+('NMLP', 'Nhập môn lập trình', 3, 450000),
+('PT-TKHTTT', 'Phân tích hệ thống thông tin', 3, 450000),
+('PT-UDWeb', 'Phát triển ứng dụng Web', 3, 450000),
+('QL_DAPM', 'Quản lý dự án phần mềm', 3, 450000),
+('TACN', 'Tiếng Anh chuyên ngành', 3, 450000),
+('TiengAnh', 'Tiếng Anh', 3, 450000),
+('TinHocDC', 'Tin học đại cương A', 3, 450000),
+('TKMT', 'Thống kê máy tính', 3, 450000),
+('TKWeb', 'Thiết kế Web', 3, 450000),
+('Toan1', 'Toán 1', 3, 450000),
+('Toan2', 'Toán 2', 2, 220000),
+('ToanRR', 'Toán rời rạc', 3, 450000),
+('TTCS', 'Thực tập cơ sở', 3, 450000),
+('VLDC', 'Vật lí đại cương', 2, 220000),
+('XS-TK', 'Xác suất- Thống kê', 3, 450000);
 
 -- --------------------------------------------------------
 
@@ -220,7 +257,15 @@ INSERT INTO `sinhvien` (`MaSV`, `HoTen`, `NgaySinh`, `GioiTinh`, `DiaChi`, `Emai
 ('63030001', 'Lê Minh I', '2000-09-09', 'Nam', '606 Đường YZ', 'i@example.com', '0123456789', 'student.jpg', '63.DL-1'),
 ('63030002', 'Trần Minh J', '2000-10-10', 'Nam', '707 Đường ABC', 'j@example.com', '0987654321', 'student.jpg', '63.DL-1'),
 ('63030003', 'Nguyễn Minh K', '2000-11-11', 'Nam', '808 Đường DEF', 'k@example.com', '0123456789', 'student.jpg', '63.DL-2'),
-('63030004', 'Lê Thị L', '2000-12-12', 'Nữ', '909 Đường GHI', 'l@example.com', '0987654321', 'student.jpg', '63.DL-2');
+('63030004', 'Lê Thị L', '2000-12-12', 'Nữ', '909 Đường GHI', 'l@example.com', '0987654321', 'student.jpg', '63.DL-2'),
+('65010002', 'Phan Châu Hải Lâm', '2000-11-11', 'Nam', 'Khánh Hòa', 'lam@gmail.com', '0123123123', 'admin.png', '63.CNTT-2'),
+('65010003', 'Thanh Mỹ', '2011-11-11', 'Nữ', 'Khánh Hòa', 'myx@gmail.com', '0123123123', 'image.png', '63.CNTT-1'),
+('65010004', 'Năm Cự', '2002-11-21', 'Nữ', 'Khánh Hòa', 'cu.n.651@ntu.edu.vn', '0198287221', 'image.png', '63.CNTT-1'),
+('65010005', 'Khá Bảnh', '2002-11-11', 'Nam', 'Khánh Hòa', 'banh.k.651@ntu.edu.vn', '02827222222', 'gitiocn.png', '63.CNTT-1'),
+('65010006', 'Hải Quay Xe', '2002-11-11', 'Nam', 'Khánh Hòa', 'xe.hq.65CNTT@ntu.edu.vn', '0198287221', 'gitiocn.png', '63.CNTT-1'),
+('65010007', 'Hương Ngoài Đèo', '2021-11-11', 'Nữ', 'Khánh Hòa', 'deo.hn.65cntt@ntu.edu.vn', '0198287221', 'gitiocn.png', '63.CNTT-1'),
+('65010008', 'Lê Sang Húc', '2011-11-22', 'Nam', 'World', 'huc.ls.65cntt@ntu.edu.vn', '0123123123', 'gitiocn.png', '63.CNTT-1'),
+('65010009', 'Chô Ke Vy', '2000-11-11', 'Nam', 'Eo Ci Cây', 'vy.ck.65cntt@ntu.edu.vn', '0123123123', 'gitiocn.png', '63.CNTT-1');
 
 -- --------------------------------------------------------
 
@@ -241,10 +286,11 @@ CREATE TABLE `sinhvien_lophocphan` (
 --
 
 INSERT INTO `sinhvien_lophocphan` (`MaSV`, `MaLopHocPhan`, `Diem`, `MaHocKi`, `NgayDongHocPhi`) VALUES
-('63010001', 'Android_63.CNTT-1', NULL, '2023-2024_HK1', NULL),
-('63010001', 'CTDL-GT_63.CNTT-1', NULL, '2023-2024_HK1', NULL),
-('63010001', 'HDH_63.CNTT-1', NULL, '2023-2024_HK1', NULL),
-('63010001', 'QLDAPM_63.CNTT-2', NULL, '2023-2024_HK1', NULL);
+('63010001', 'Android_63.CNTT-1', 7.5, '2023-2024_HK1', '2023-09-01 00:00:00'),
+('63010001', 'CTDL-GT_63.CNTT-1', 8, '2023-2024_HK1', '2023-09-05 00:00:00'),
+('63010001', 'HDH_63.CNTT-1', 6.5, '2023-2024_HK1', '2023-09-10 00:00:00'),
+('63010001', 'QLDAPM_63.CNTT-2', 7, '2023-2024_HK1', '2023-09-15 00:00:00'),
+('63010001', 'Android_63.CNTT-2', 8.2, '2023-2024_HK1', '2023-09-20 00:00:00');
 
 --
 -- Indexes for dumped tables
@@ -281,7 +327,8 @@ ALTER TABLE `lop`
 ALTER TABLE `lophocphan`
   ADD PRIMARY KEY (`MaLopHocPhan`),
   ADD KEY `FK_LopHocPhan_MonHoc` (`MaMonHoc`),
-  ADD KEY `MaGV` (`MaGV`);
+  ADD KEY `MaGV` (`MaGV`),
+  ADD KEY `MaLop` (`MaLop`);
 
 --
 -- Indexes for table `monhoc`
@@ -325,7 +372,8 @@ ALTER TABLE `lop`
 --
 ALTER TABLE `lophocphan`
   ADD CONSTRAINT `FK_LopHocPhan_MonHoc` FOREIGN KEY (`MaMonHoc`) REFERENCES `monhoc` (`MaHP`),
-  ADD CONSTRAINT `lophocphan_ibfk_1` FOREIGN KEY (`MaGV`) REFERENCES `giaovien` (`MaGV`);
+  ADD CONSTRAINT `lophocphan_ibfk_1` FOREIGN KEY (`MaGV`) REFERENCES `giaovien` (`MaGV`),
+  ADD CONSTRAINT `lophocphan_ibfk_2` FOREIGN KEY (`MaLop`) REFERENCES `lop` (`MaLop`);
 
 --
 -- Constraints for table `sinhvien`

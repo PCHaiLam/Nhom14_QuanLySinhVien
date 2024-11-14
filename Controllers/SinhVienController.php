@@ -73,7 +73,8 @@ class SinhVienController
         $sql = "INSERT INTO sinhvien (MaSV, HoTen, NgaySinh, GioiTinh, DiaChi, Email, Sdt, AnhSV, MaLop) VALUES ('$maSV', '$hoTen', '$ngaySinh', '$gioiTinh', '$diaChi', '$email', '$sdt', '$anhSV', '$maLop')";
 
         if ($this->conn->query($sql) === TRUE) {
-            return "Thêm sinh viên thành công!";
+            header("Location: QuanLyThongTinSinhVien.php");
+            exit;
         } else {
             return "Thêm sinh viên thất bại: " . $this->conn->error;
         }
@@ -86,14 +87,14 @@ class SinhVienController
         return $result->fetch_assoc();
     }
     // Hàm sửa sinh viên
-    public function SuaSinhVien($maSV, $hoTen, $ngaySinh, $gioiTinh, $diaChi, $email, $sdt, $maLop)
+    public function SuaSinhVien($maSV, $hoTen, $ngaySinh, $gioiTinh, $diaChi, $email, $sdt, $fileName)
     {
-        $sql = "UPDATE sinhvien SET HoTen='$hoTen', NgaySinh='$ngaySinh', GioiTinh='$gioiTinh', DiaChi='$diaChi', Email='$email', Sdt='$sdt', MaLop='$maLop' WHERE MaSV='$maSV'";
+        $sql = "UPDATE sinhvien SET HoTen='$hoTen', NgaySinh='$ngaySinh', GioiTinh='$gioiTinh', DiaChi='$diaChi', Email='$email', Sdt='$sdt', AnhSV='$fileName' WHERE MaSV='$maSV'";
 
         if ($this->conn->query($sql) === TRUE) {
-            echo "Sửa sinh viên thành công.";
+            return "Sửa sinh viên thành công.";
         } else {
-            echo "Lỗi khi sửa sinh viên: " . $this->conn->error;
+            return "Lỗi khi sửa sinh viên: " . $this->conn->error;
         }
     }
     // Hàm xóa sinh viên
@@ -102,9 +103,9 @@ class SinhVienController
         $sql = "DELETE FROM sinhvien WHERE MaSV='$maSV'";
 
         if ($this->conn->query($sql) === TRUE) {
-            echo "Xóa sinh viên thành công.";
+            return "Xóa sinh viên thành công.";
         } else {
-            echo "Lỗi khi xóa sinh viên: " . $this->conn->error;
+            return "Lỗi khi xóa sinh viên: " . $this->conn->error;
         }
     }
     //Tính tổng sinh viên để phân trang

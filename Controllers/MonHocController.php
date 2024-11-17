@@ -27,5 +27,17 @@ class MonHocController {
 
         return $row['total'];
     }
+
+    // Hàm thêm sinh viên
+    public function ThemMonHoc($maMon, $tenMon, $soTinChi, $donGia)
+    {
+        $sql = "INSERT INTO monhoc (MaHP, TenHP, SoTinChi, DonGia) VALUES ('$maMon', '$tenMon', '$soTinChi', '$donGia')";
+        if ($this->conn->query($sql) === TRUE) {
+            header("Location: Subjects_List.php");
+            exit;
+        } else {
+            return "Thêm môn học thất bại: " . $this->conn->error;
+        }
+    }
 }
 ?>

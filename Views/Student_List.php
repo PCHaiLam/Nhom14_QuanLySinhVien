@@ -72,7 +72,7 @@ $sinhvienList = $svController->timKiem($maKhoa, $maLop, $search);
             </form>
         </div>
         
-        <!-- Table displaying student data -->
+        <!-- hiển thị bảng sinh viên -->
         <div class="w-full h-[505px] mx-2 bg-white rounded-xl shadow border-2 overflow-scroll overflow-x-hidden">
             <table border="1" cellpadding="10" cellspacing="0" class="w-full text-center border border-collapse">
                 <thead>

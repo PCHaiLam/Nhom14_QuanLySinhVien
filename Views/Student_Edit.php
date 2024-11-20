@@ -81,11 +81,20 @@ $sinhvien = $svController->ChiTietSinhVien($maSV);
                     </div>
                     <div class="">
                         <label class="block font-medium">Giới Tính</label>
-                        <select name="gioiTinh" class="w-full px-3 py-2 border rounded-md" required>
-                            <option value="Nam" <?php echo ( $sinhvien["GioiTinh"] === 'Nam') ? 'selected' : ''; ?>>Nam</option>
-                            <option value="Nữ" <?php echo ( $sinhvien["GioiTinh"] === 'Nữ') ? 'selected' : ''; ?>>Nữ</option>
-                        </select>
+                        <div class="flex items-center space-x-4">
+                            <label class="flex items-center">
+                                <input type="radio" name="gioiTinh" value="Nam" class="mr-2" required
+                                    <?php echo ($sinhvien["GioiTinh"] === 'Nam') ? 'checked' : ''; ?>>
+                                Nam
+                            </label>
+                            <label class="flex items-center">
+                                <input type="radio" name="gioiTinh" value="Nữ" class="mr-2" 
+                                    <?php echo ($sinhvien["GioiTinh"] === 'Nữ') ? 'checked' : ''; ?>>
+                                Nữ
+                            </label>
+                        </div>
                     </div>
+
                     <div class="">
                         <label class="block font-medium">Địa Chỉ</label>
                         <input type="text" name="diaChi" class="w-full px-3 py-2 border rounded-md"
@@ -94,7 +103,7 @@ $sinhvien = $svController->ChiTietSinhVien($maSV);
                     <div class="">
                         <label class="block font-medium">Email</label>
                         <input type="email" name="email" class="w-full px-3 py-2 border rounded-md"
-                               value="<?php echo $sinhvien['Email']; ?>" required>
+                               value="<?php echo $sinhvien['Email']; ?>" disabled>
                     </div>
                     <div class="">
                         <label class="block font-medium">SĐT</label>
@@ -103,8 +112,9 @@ $sinhvien = $svController->ChiTietSinhVien($maSV);
                     </div>
                     <div class="">
                         <label class="block font-medium">Ảnh</label>
+                        <img src="" alt="Ảnh SV">
                         <input type="file" accept="image/*" name="AnhSV" class="w-full px-3 py-2 border rounded-md "
-                            required>  <?php echo $sinhvien['AnhSV']; ?>
+                            required>
                         
                     </div>
                     <div class="col-span-3 text-center">

@@ -8,10 +8,14 @@ class SinhVien_LopHocPhanController{
     // Hàm hiển thị danh sách sinh viên
     public function DanhSachDiem($maSV)
     {
-        $sql = "SELECT MaHocKi, MaLopHocPhan, Diem
-                FROM sinhvien_lophocphan 
-                WHERE MaSV = $maSV
-                ORDER BY MaHocKi";
+        $sql = " SELECT svlhp.MaHocKi, mh.MaHP, mh.TenHP, mh.SoTinChi, svlhp.Diem
+                FROM sinhvien_lophocphan svlhp
+                JOIN lophocphan lhp
+                ON svlhp.MaLopHocPhan = lhp.MaLopHocPhan
+                JOIN monhoc mh
+                ON lhp.MaMonHoc = mh.MaHP
+                WHERE svlhp.MaSV = 63010001
+                ORDER BY svlhp.MaHocKi";
         $result = $this->conn->query($sql);
 
         return $result;

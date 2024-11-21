@@ -90,9 +90,9 @@ class SinhVienController
         $sql = "DELETE FROM sinhvien WHERE MaSV='$maSV'";
 
         if ($this->conn->query($sql) === TRUE) {
-            return "Xóa sinh viên thành công.";
+            return true;
         } else {
-            return "Lỗi khi xóa sinh viên: " . $this->conn->error;
+            return false;
         }
     }
     public function TaoMaSoSinhVien($maLop) {
@@ -163,17 +163,17 @@ class SinhVienController
         }
     
         // Tách họ tên thành các từ và loại bỏ dấu
-        $tenParts = explode(" ", trim($hoTen));
-        foreach ($tenParts as &$part) {
+        $tenPart = explode(" ", trim($hoTen));
+        foreach ($tenPart as &$part) {
             $part = strtolower(removeVietnameseAccents($part));
         }
     
         // Lấy phần tên (phần cuối cùng trong họ tên)
-        $ten = array_pop($tenParts);
+        $ten = array_pop($tenPart);
     
         // Lấy ký tự đầu tiên của từng phần còn lại (họ và tên đệm)
         $hoTenDem = "";
-        foreach ($tenParts as $part) {
+        foreach ($tenPart as $part) {
             $hoTenDem .= substr($part, 0, 1);
         }
     

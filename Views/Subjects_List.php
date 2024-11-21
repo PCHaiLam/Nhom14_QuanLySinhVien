@@ -35,7 +35,7 @@ $monhocList = $monhocController->DanhSach($currentPage, $limit);
                     <th class="py-3 px-4 border-b text-left w-[370px]">Tên Môn Học</th>
                     <th class="py-3 px-4 border-b text-left">Số Tín Chỉ</th>
                     <th class="py-3 px-4 border-b text-left">Đơn Giá</th>
-                    <th class="py-3 px-4 border-b text-left w-[170px]"></th>
+                    <th class="py-3 px-4 border-b text-left w-20"></th>
                 </tr>
                 <?php
                 // Kiểm tra nếu có dữ liệu
@@ -49,10 +49,8 @@ $monhocList = $monhocController->DanhSach($currentPage, $limit);
                         echo "<td class='py-3 px-4 border-b'>" . htmlspecialchars($monhoc['TenHP']) . "</td>";
                         echo "<td class='py-3 px-4 border-b'>" . htmlspecialchars($monhoc['SoTinChi']) . "</td>";
                         echo "<td class='py-3 px-4 border-b'>" . htmlspecialchars($monhoc['DonGia']) . "</td>";
-                        echo "<td class='py-3 px-4 border-b flex justify-between'>
-                                <a href='Subject_Detail.php?MaHP= ".$monhoc['MaHP'] ."' title='Chỉnh sửa'><img src='../asset/Images/details.png' class='h-12'/></a>
+                        echo "<td class='py-3 px-4 border-b'>
                                 <a href='Subject_Edit.php?MaHP= ".$monhoc['MaHP'] ."' title='Chỉnh sửa'><img src='../asset/Images/edit.png' class='h-12'/></a>
-                                <a href='Subject_Delete.php?MaHP= ".$monhoc['MaHP'] ."' title='Chỉnh sửa'><img src='../asset/Images/delete.png' class='h-12'/></a>
                                 </td>";
                         echo "</tr>";
                         $stt++;

@@ -14,7 +14,7 @@ class SinhVien_LopHocPhanController{
                 ON svlhp.MaLopHocPhan = lhp.MaLopHocPhan
                 JOIN monhoc mh
                 ON lhp.MaMonHoc = mh.MaHP
-                WHERE svlhp.MaSV = 63010001
+                WHERE svlhp.MaSV = $maSV
                 ORDER BY svlhp.MaHocKi";
         $result = $this->conn->query($sql);
 

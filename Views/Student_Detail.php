@@ -9,6 +9,22 @@ $svController = new SinhVienController($conn);
 $maSV = isset($_GET['MaSV']) ? $_GET['MaSV'] : null;
 $sinhvien = $svController->ChiTietSinhVien($maSV);
 
+//xóa sinh viên
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Lấy mã sinh viên từ dữ liệu POST
+    $maSVxoa = $_POST['MaSV'];
+
+    // Gọi phương thức xóa sinh viên từ controller
+    if ($svController->XoaSinhVien($maSVxoa)) {
+        // Xóa thành công, điều hướng quay lại list sinh viên
+        header("Location: Student_List.php");
+        exit;
+    } else {
+        $message = "Xóa không thành công";
+    }
+}
+
+
 ?>
 <?php include_once __DIR__ . "/../layout/header.php"; ?>
 <body>
@@ -35,11 +51,38 @@ $sinhvien = $svController->ChiTietSinhVien($maSV);
                 <a href="Student_Edit.php?MaSV=<?php echo $sinhvien['MaSV']; ?>" title="Chỉnh sửa">
                     <i class="fa-solid fa-circle-info text-5xl text-blue-500 hover:text-blue-600"></i>
                 </a>
-                <a href="Student_Delete.php" title="Xóa">
-                    <i class="fa-solid fa-trash text-5xl text-red-500 hover:text-red-600"></i>
-                </a>
+                <!-- Nút mở modal -->
+                <button 
+                    class="text-5xl text-red-500 hover:text-red-600" 
+                    onclick="openModal()">
+                    <i class="fa-solid fa-trash"></i>
+                </button>
+
             </div>
+            <!-- Modal -->
+            <form action="" method="post" id="confirmModal" class="hidden fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+                <div class="bg-white p-6 rounded-lg">
+                    <h2 class="text-xl font-bold mb-4">Xác nhận xóa</h2>
+                    <p class="mb-6">Bạn có chắc chắn muốn xóa sinh viên này không?</p>
+                    <input type="hidden" name="MaSV" value="<?php echo $maSV; ?>">
+                    <div class="flex justify-end space-x-4">
+                        <button class="bg-gray-300 px-4 py-2 rounded" onclick="closeModal()">Hủy</button>
+                        <button class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">Xóa</button>
+                    </div>
+                </div>
+            </form>
+
         </div>
     </div>
 </body>
+<script>
+    
+    function openModal() {
+        document.getElementById('confirmModal').classList.remove('hidden'); // Hiện modal
+    }
+
+    function closeModal() {
+        document.getElementById('confirmModal').classList.add('hidden'); // Ẩn modal
+    }
+</script>
 <?php include_once __DIR__ . "/../layout/footer.php"; ?>

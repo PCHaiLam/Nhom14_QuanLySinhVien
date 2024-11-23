@@ -1,5 +1,5 @@
 <?php 
-class MonHoc {
+class MonHocModel {
     protected $MaMon;
     protected $TenMon;
     protected $SoTinChi;

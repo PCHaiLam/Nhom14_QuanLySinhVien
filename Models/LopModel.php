@@ -1,5 +1,5 @@
 <?php
-class Lop {
+class LopModel {
     protected $MaLop;
     protected $TenLop;
     protected $MaNganh;

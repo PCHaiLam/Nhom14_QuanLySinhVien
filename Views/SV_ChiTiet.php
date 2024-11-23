@@ -17,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Gọi phương thức xóa sinh viên từ controller
     if ($svController->XoaSinhVien($maSVxoa)) {
         // Xóa thành công, điều hướng quay lại list sinh viên
-        header("Location: Student_List.php");
+        header("Location: SV_DS.php");
         exit;
     } else {
         $message = "Xóa không thành công";
@@ -45,10 +45,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 </div>
             </ul>
             <div class="flex justify-around items-center p-2">
-                <a href="Mark_OfStudent.php?MaSV=<?php echo $sinhvien['MaSV']; ?>"  title="Điểm">
+                <a href="SV_Diem.php?MaSV=<?php echo $sinhvien['MaSV']; ?>"  title="Điểm">
                     <i class="fa-solid fa-square-poll-horizontal text-5xl text-green-500 hover:text-green-600"></i>
                 </a>
-                <a href="Student_Edit.php?MaSV=<?php echo $sinhvien['MaSV']; ?>" title="Chỉnh sửa">
+                <a href="SV_ChinhSua.php?MaSV=<?php echo $sinhvien['MaSV']; ?>" title="Chỉnh sửa">
                     <i class="fa-solid fa-circle-info text-5xl text-blue-500 hover:text-blue-600"></i>
                 </a>
                 <!-- Nút mở modal -->
@@ -60,23 +60,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             </div>
             <!-- Modal -->
-            <form action="" method="post" id="confirmModal" class="hidden fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+            <div id="confirmModal" class="hidden fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
                 <div class="bg-white p-6 rounded-lg">
                     <h2 class="text-xl font-bold mb-4">Xác nhận xóa</h2>
                     <p class="mb-6">Bạn có chắc chắn muốn xóa sinh viên này không?</p>
-                    <input type="hidden" name="MaSV" value="<?php echo $maSV; ?>">
                     <div class="flex justify-end space-x-4">
                         <button class="bg-gray-300 px-4 py-2 rounded" onclick="closeModal()">Hủy</button>
-                        <button class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">Xóa</button>
+                        <form method="POST" action="">
+                            <input type="hidden" name="MaSV" value="<?php echo $maSV; ?>">
+                            <button type="submit" class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">Xóa</button>
+                        </form>
                     </div>
                 </div>
-            </form>
+            </div>
 
         </div>
     </div>
 </body>
 <script>
-    
     function openModal() {
         document.getElementById('confirmModal').classList.remove('hidden'); // Hiện modal
     }

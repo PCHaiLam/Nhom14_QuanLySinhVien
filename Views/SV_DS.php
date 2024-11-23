@@ -27,7 +27,7 @@ $sinhvienList = $svController->timKiem($maKhoa, $maLop, $search);
     <div class="my-6 mx-2 min-h-[520px] flex">
         <div class="flex flex-col items-center">
             <!-- thêm button thêm sinh viên -->
-            <button onclick="window.location.href='Student_Create.php'" class="mb-4 px-4 py-2 bg-blue-500 text-white font-semibold rounded hover:bg-blue-600">
+            <button onclick="window.location.href='SV_ThemMoi.php'" class="mb-4 px-4 py-2 bg-blue-500 text-white font-semibold rounded hover:bg-blue-600">
                 Thêm sinh viên
             </button>
 
@@ -92,7 +92,7 @@ $sinhvienList = $svController->timKiem($maKhoa, $maLop, $search);
                 <tbody>
                     <?php if ($sinhvienList && $sinhvienList->num_rows > 0): ?>
                         <?php $stt=1; foreach ($sinhvienList as $sinhvien): ?>
-                            <tr title="Ấn vào xem chi tiết" class="border-2 cursor-pointer hover:bg-gray-200" onclick="window.location.href='Student_Detail.php?MaSV=<?php echo $sinhvien['MaSV']; ?>'">
+                            <tr title="Ấn vào xem chi tiết" class="border-2 cursor-pointer hover:bg-gray-200" onclick="window.location.href='SV_ChiTiet.php?MaSV=<?php echo $sinhvien['MaSV']; ?>'">
                                 <td class="border"><?php echo $stt; ?></td>
                                 <td><?php echo $sinhvien['MaSV']; ?></td>
                                 <td><?php echo $sinhvien['HoTen']; ?></td>
@@ -117,3 +117,36 @@ $sinhvienList = $svController->timKiem($maKhoa, $maLop, $search);
 </body>
 
 <?php include_once __DIR__ . "/../layout/footer.php"; ?>
+<!-- <div class="flex justify-center items-center mt-5">
+                <!-- Nút đầu -->
+                <?php if ($currentPage > 1): ?>
+                    <a href="?page=1" class="px-4 py-2 mx-1 border border-gray-300 rounded-lg text-blue-600 hover:bg-blue-500 hover:text-white">Đầu</a>
+                <?php else: ?>
+                    <span class="px-4 py-2 mx-1 border border-gray-300 rounded-lg text-gray-400 cursor-not-allowed">Đầu</span>
+                <?php endif; ?>
+                <!-- Trang trước -->
+                <?php if ($currentPage > 1): ?>
+                    <a href="?page=<?= $currentPage - 1 ?>" class="px-4 py-2 mx-1 border border-gray-300 rounded-lg text-blue-600 hover:bg-blue-500 hover:text-white">&laquo; Trang trước</a>
+                <?php else: ?>
+                    <span class="px-4 py-2 mx-1 border border-gray-300 rounded-lg text-gray-400 cursor-not-allowed">&laquo; Trang trước</span>
+                <?php endif; ?>
+                <!-- Liên kết các trang -->
+                <?php
+                    $totalPages = ceil($totalMonHoc / $limit);
+                    for ($i = 1; $i <= $totalPages; $i++):
+                        ?>
+                        <a href="?page=<?= $i ?>"class="px-4 py-2 mx-1 border border-gray-300 rounded-lg text-blue-600 hover:bg-blue-500 hover:text-white <?= ($i == $currentPage) ? 'bg-blue-500 text-white font-semibold' : '' ?>"><?= $i ?></a>
+                <?php endfor; ?>
+                <!-- Trang sau -->
+                <?php if ($currentPage < $totalPages): ?>
+                    <a href="?page=<?= $currentPage + 1 ?>" class="px-4 py-2 mx-1 border border-gray-300 rounded-lg text-blue-600 hover:bg-blue-500 hover:text-white">Trang sau &raquo;</a>
+                <?php else: ?>
+                    <span class="px-4 py-2 mx-1 border border-gray-300 rounded-lg text-gray-400 cursor-not-allowed">Trang sau &raquo;</span>
+                <?php endif; ?>
+                <!-- Nút cuối -->
+                <?php if ($currentPage < $totalPages): ?>
+                    <a href="?page=<?= $totalPages ?>" class="px-4 py-2 mx-1 border border-gray-300 rounded-lg text-blue-600 hover:bg-blue-500 hover:text-white">Cuối</a>
+                <?php else: ?>
+                    <span class="px-4 py-2 mx-1 border border-gray-300 rounded-lg text-gray-400 cursor-not-allowed">Cuối</span>
+                <?php endif; ?>
+            </div> -->

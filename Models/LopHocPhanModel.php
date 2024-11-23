@@ -1,5 +1,5 @@
 <?php 
-class LopHocPhan {
+class LopHocPhanModel {
     protected $MaLopHocPhan;
     protected $MaMonHoc;
     protected $DiaDiem;

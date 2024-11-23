@@ -1,5 +1,5 @@
 <?php 
-class SinhVien {
+class SinhVienModel {
     protected $MaSV;
     protected $HoTen;
     protected $NgaySinh;

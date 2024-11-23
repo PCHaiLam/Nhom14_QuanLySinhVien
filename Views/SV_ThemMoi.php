@@ -66,28 +66,6 @@ $sinhvienList = $svController->DanhSach();
         <div id="" class="flex items-center justify-center">
             <div class="bg-white p-6 rounded-lg w-max shadow-lg border-2">
                 <h2 class="text-xl font-bold mb-4 text-center">Thêm sinh viên mới</h2>
-                <!-- xác nhận lớp trước để hiển thị đúng MaSV -->
-                <form method="GET" action="" class="grid grid-cols-3 gap-4">
-                    <!-- <div class="grid grid-cols-2">
-                        <label class="block font-medium">Khoa</label>
-                        <select id="khoaOption" name="khoaOption" class="col-span-2 p-2 border rounded-md"
-                            onchange="loadLopByKhoa()">
-                            <option value=""></option>
-                            <?php
-                            // Lấy giá trị `khoaOption` đã chọn nếu có
-                            $selectedKhoa = isset($_GET['khoaOption']) ? $_GET['khoaOption'] : '';
-
-                            // Kiểm tra nếu có dữ liệu khoa
-                            if ($khoaList->num_rows > 0) {
-                                // Lặp qua từng khoa và tạo các <option>
-                                while ($khoa = $khoaList->fetch_assoc()) {
-                                    $selected = $selectedKhoa === $khoa['MaKhoa'] ? 'selected' : '';
-                                    echo "<option value=\"" . $khoa['MaKhoa'] . "\" $selected>" . htmlspecialchars($khoa['TenKhoa']) . "</option>";
-                                }
-                            }
-                            ?>
-                        </select>
-                    </div> -->
 
                     <div class="grid grid-cols-2">
                         <label class="block font-medium">Lớp</label>

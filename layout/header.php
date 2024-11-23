@@ -4,7 +4,7 @@ include_once __DIR__ . '/../Controllers/QuanTriController.php';
 $quantriController = new QuanTriController($conn);
 
 if (!isset($_SESSION['User'])) {
-    header('Location: loginPage.php');
+    header('Location: DangNhap.php');
     exit;
 }
 
@@ -13,7 +13,7 @@ if (isset($_GET['action']) && $_GET['action'] == 'logout') {
     // Gọi hàm logout và kiểm tra nếu logout thành công
     if ($quantriController->logout()) {
         // Nếu logout thành công, chuyển hướng đến trang đăng nhập
-        header('Location: loginPage.php');
+        header('Location: DangNhap.php');
         exit;
     }
 }

@@ -1,5 +1,5 @@
 <?php 
-class GiaoVien {
+class GiaoVienModel {
     protected $MaGV;
     protected $HoTen;
     protected $Email;

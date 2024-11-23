@@ -8,65 +8,45 @@ class SinhVienController
         $this->conn = $conn;
     }
     // Hàm hiển thị danh sách sinh viên
-    public function DanhSach($page = 1, $limit = 10)
+    public function DanhSach($currentPage, $limit)
     {
-        $offset = ($page - 1) * $limit;
-        $sql = "SELECT * FROM sinhvien LIMIT $offset, $limit";
+        $offset = ($currentPage - 1) * $limit;
+        $sql = "SELECT * FROM sinhvien LIMIT $limit OFFSET $offset";
         $result = $this->conn->query($sql);
 
         return $result;
     }
-    public function timKiem($maKhoa = null, $maLop = null, $search = null)
+    public function timKiem($maKhoa, $maLop, $search)
     {
-        // Câu truy vấn cơ bản
         $sql = "SELECT sinhvien.* FROM sinhvien 
                 INNER JOIN lop ON sinhvien.MaLop = lop.MaLop
-                INNER JOIN khoa ON lop.MaKhoa = khoa.MaKhoa";
-        
-        // Mảng chứa điều kiện tìm kiếm
-        $dieukien = array();
-        
-        // Kiểm tra và thêm điều kiện MaKhoa nếu có
-        if (!empty($maKhoa) && $maKhoa !== " ") {
-            $dieukien[] = "khoa.MaKhoa = '$maKhoa'";
-        }
-        
-        // Kiểm tra và thêm điều kiện MaLop nếu có
-        if (!empty($maLop)) {
-            $dieukien[] = "sinhvien.MaLop = '$maLop'";
-        }
-        
-        // Kiểm tra và thêm điều kiện tìm kiếm text (MaSV hoặc TenSV)
-        if (!empty($search)) {
-            $search = "%" . $search . "%"; // Thêm dấu % để tìm kiếm theo phần chuỗi
-            $dieukien[] = "(sinhvien.MaSV LIKE '$search' OR sinhvien.HoTen LIKE '$search')";
-        }
-        
-        // Nếu có điều kiện tìm kiếm, thêm phần WHERE vào câu truy vấn
-        if (count($dieukien) > 0) {
-            $sql .= " WHERE " . implode(' AND ', $dieukien);
-        }
-
-        // Thực thi câu truy vấn
+                INNER JOIN khoa ON lop.MaKhoa = khoa.MaKhoa
+                WHERE (khoa.MaKhoa = '$maKhoa' OR '$maKhoa' = '')
+                    AND (lop.MaLop = '$maLop' OR '$maLop' = '')
+                    AND (sinhvien.MaSV LIKE '%$search%'
+                        OR sinhvien.HoTen LIKE '%$search%'
+                        or sinhvien.Email LIKE '%$search%'
+                        OR sinhvien.Sdt LIKE '%$search%'
+                        OR sinhvien.DiaChi LIKE '%$search%'
+                        OR sinhvien.NgaySinh LIKE '%$search%'
+                        OR sinhvien.GioiTinh LIKE '%$search%')";
         $result = $this->conn->query($sql);
-        
-        // Trả về kết quả
+
         return $result;
     }
-
     // Hàm thêm sinh viên
     public function ThemSinhVien($maSV, $hoTen, $ngaySinh, $gioiTinh, $diaChi, $email, $sdt, $anhSV, $maLop)
     {
         $sql = "INSERT INTO sinhvien (MaSV, HoTen, NgaySinh, GioiTinh, DiaChi, Email, Sdt, AnhSV, MaLop) VALUES ('$maSV', '$hoTen', '$ngaySinh', '$gioiTinh', '$diaChi', '$email', '$sdt', '$anhSV', '$maLop')";
 
         if ($this->conn->query($sql) === TRUE) {
-            header("Location: Student_List.php");
+            header("Location: SV_DS.php");
             exit;
         } else {
             return "Thêm sinh viên thất bại: " . $this->conn->error;
         }
     }
-    // Hàm xóa sinh viên
+    // Hàm chi tiết sinh viên
     public function ChiTietSinhVien($maSV)
     {
         $sql = "SELECT * FROM sinhvien WHERE MaSV='$maSV'";
@@ -198,6 +178,15 @@ class SinhVienController
         $email = "{$ten}.{$hoTenDem}.{$prefixNam}{$nganh}@ntu.edu.vn";
     
         return $email;
+    }
+    //Tính tổng sinh viên để phân trang
+    public function countMonHoc()
+    {
+        $sql = "SELECT COUNT(*) as total FROM sinhvien";
+        $result = $this->conn->query($sql);
+        $row = $result->fetch_assoc();
+
+        return $row['total'];
     }
 }
 ?>

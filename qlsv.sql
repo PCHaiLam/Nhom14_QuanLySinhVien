@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 14, 2024 at 04:51 PM
+-- Generation Time: Nov 23, 2024 at 06:47 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -130,7 +130,7 @@ INSERT INTO `lop` (`MaLop`, `TenLop`, `MaKhoa`) VALUES
 CREATE TABLE `lophocphan` (
   `MaLopHocPhan` varchar(20) NOT NULL,
   `MaMonHoc` varchar(10) DEFAULT NULL,
-  `DiaDiem` varchar(100) DEFAULT NULL,
+  `DiaDiem` varchar(20) DEFAULT NULL,
   `MaGV` varchar(20) DEFAULT NULL,
   `MaLop` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
@@ -141,12 +141,12 @@ CREATE TABLE `lophocphan` (
 
 INSERT INTO `lophocphan` (`MaLopHocPhan`, `MaMonHoc`, `DiaDiem`, `MaGV`, `MaLop`) VALUES
 ('Android_63.CNTT-1', 'Android', 'G6-101', 'GV04', '63.CNTT-1'),
-('Android_63.CNTT-2', 'Android', 'G6-103', 'GV04', '63.CNTT-2'),
-('CTDL-GT_63.CNTT-1', 'CTDL-GT', 'G6-203', 'GV03', '63.CNTT-1'),
-('CTDL-GT_63.CNTT-2', 'CTDL-GT', 'G6-201', 'GV02', '63.CNTT-2'),
-('HDH_63.CNTT-1', 'HDH', 'G6-303', 'GV05', '63.CNTT-1'),
-('HDH_63.CNTT-2', 'HDH', 'G6-103', 'GV05', '63.CNTT-2'),
-('QLDAPM_63.CNTT-2', 'QL_DAPM', 'G6-102', 'GV02', '63.CNTT-2');
+('Android_63.CNTT-2', 'Android', 'G6-201', 'GV04', '63.CNTT-2'),
+('CTDL-GT_63.CNTT-1', 'CTDL-GT', 'G6-103', 'GV03', '63.CNTT-1'),
+('CTDL-GT_63.CNTT-2', 'CTDL-GT', 'G6-202', 'GV02', '63.CNTT-2'),
+('HDH_63.CNTT-1', 'HDH', 'G6-101', 'GV05', '63.CNTT-1'),
+('HDH_63.CNTT-2', 'HDH', 'G6-104', 'GV05', '63.CNTT-2'),
+('QLDAPM_63.CNTT-2', 'QL_DAPM', 'G6-103', 'GV02', '63.CNTT-2');
 
 -- --------------------------------------------------------
 
@@ -166,7 +166,7 @@ CREATE TABLE `monhoc` (
 --
 
 INSERT INTO `monhoc` (`MaHP`, `TenHP`, `SoTinChi`, `DonGia`) VALUES
-('Android', 'Lập trình Android', 3, 450000),
+('Android', 'Lập trình Android', 2, 460000),
 ('CNPM', 'Công nghệ phần mềm', 3, 450000),
 ('CSDL', 'Cơ sở dữ liệu', 3, 450000),
 ('CTDL-GT', 'Cấu trúc dữ liệu và giải thuật', 4, 450000),
@@ -191,11 +191,38 @@ INSERT INTO `monhoc` (`MaHP`, `TenHP`, `SoTinChi`, `DonGia`) VALUES
 ('TKMT', 'Thống kê máy tính', 3, 450000),
 ('TKWeb', 'Thiết kế Web', 3, 450000),
 ('Toan1', 'Toán 1', 3, 450000),
-('Toan2', 'Toán 2', 2, 220000),
 ('ToanRR', 'Toán rời rạc', 3, 450000),
 ('TTCS', 'Thực tập cơ sở', 3, 450000),
 ('VLDC', 'Vật lí đại cương', 2, 220000),
 ('XS-TK', 'Xác suất- Thống kê', 3, 450000);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `phonghoc`
+--
+
+CREATE TABLE `phonghoc` (
+  `DiaDiem` varchar(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+--
+-- Dumping data for table `phonghoc`
+--
+
+INSERT INTO `phonghoc` (`DiaDiem`) VALUES
+('G6-101'),
+('G6-102'),
+('G6-103'),
+('G6-104'),
+('G6-201'),
+('G6-202'),
+('G6-203'),
+('G6-204'),
+('G6-301'),
+('G6-302'),
+('G6-303'),
+('G6-304');
 
 -- --------------------------------------------------------
 
@@ -252,12 +279,6 @@ INSERT INTO `sinhvien` (`MaSV`, `HoTen`, `NgaySinh`, `GioiTinh`, `DiaChi`, `Emai
 ('63010004', 'Nguyễn Thị D', '2000-04-04', 'Nữ', '101 Đường JKL', 'd@example.com', '0987654321', 'student.jpg', '63.CNTT-2'),
 ('63020001', 'Trần Văn E', '2000-05-05', 'Nam', '202 Đường MNO', 'e@example.com', '0123456789', 'student.jpg', '63.KT-1'),
 ('63020002', 'Phạm Minh F', '2000-06-06', 'Nam', '303 Đường PQR', 'f@example.com', '0987654321', 'student.jpg', '63.KT-1'),
-('63020003', 'Bùi Minh G', '2000-07-07', 'Nam', '404 Đường STU', 'g@example.com', '0123456789', 'student.jpg', '63.KT-2'),
-('63020004', 'Võ Thị H', '2000-08-08', 'Nữ', '505 Đường VWX', 'h@example.com', '0987654321', 'student.jpg', '63.KT-2'),
-('63030001', 'Lê Minh I', '2000-09-09', 'Nam', '606 Đường YZ', 'i@example.com', '0123456789', 'student.jpg', '63.DL-1'),
-('63030002', 'Trần Minh J', '2000-10-10', 'Nam', '707 Đường ABC', 'j@example.com', '0987654321', 'student.jpg', '63.DL-1'),
-('63030003', 'Nguyễn Minh K', '2000-11-11', 'Nam', '808 Đường DEF', 'k@example.com', '0123456789', 'student.jpg', '63.DL-2'),
-('63030004', 'Lê Thị L', '2000-12-12', 'Nữ', '909 Đường GHI', 'l@example.com', '0987654321', 'student.jpg', '63.DL-2'),
 ('65010002', 'Phan Châu Hải Lâm', '2000-11-11', 'Nam', 'Khánh Hòa', 'lam@gmail.com', '0123123123', 'admin.png', '63.CNTT-2'),
 ('65010003', 'Thanh Mỹ', '2011-11-11', 'Nữ', 'Khánh Hòa', 'myx@gmail.com', '0123123123', 'image.png', '63.CNTT-1'),
 ('65010004', 'Năm Cự', '2002-11-21', 'Nữ', 'Khánh Hòa', 'cu.n.651@ntu.edu.vn', '0198287221', 'image.png', '63.CNTT-1'),
@@ -328,13 +349,20 @@ ALTER TABLE `lophocphan`
   ADD PRIMARY KEY (`MaLopHocPhan`),
   ADD KEY `FK_LopHocPhan_MonHoc` (`MaMonHoc`),
   ADD KEY `MaGV` (`MaGV`),
-  ADD KEY `MaLop` (`MaLop`);
+  ADD KEY `MaLop` (`MaLop`),
+  ADD KEY `DiaDiem` (`DiaDiem`);
 
 --
 -- Indexes for table `monhoc`
 --
 ALTER TABLE `monhoc`
   ADD PRIMARY KEY (`MaHP`);
+
+--
+-- Indexes for table `phonghoc`
+--
+ALTER TABLE `phonghoc`
+  ADD PRIMARY KEY (`DiaDiem`);
 
 --
 -- Indexes for table `quantri`
@@ -373,7 +401,8 @@ ALTER TABLE `lop`
 ALTER TABLE `lophocphan`
   ADD CONSTRAINT `FK_LopHocPhan_MonHoc` FOREIGN KEY (`MaMonHoc`) REFERENCES `monhoc` (`MaHP`),
   ADD CONSTRAINT `lophocphan_ibfk_1` FOREIGN KEY (`MaGV`) REFERENCES `giaovien` (`MaGV`),
-  ADD CONSTRAINT `lophocphan_ibfk_2` FOREIGN KEY (`MaLop`) REFERENCES `lop` (`MaLop`);
+  ADD CONSTRAINT `lophocphan_ibfk_2` FOREIGN KEY (`MaLop`) REFERENCES `lop` (`MaLop`),
+  ADD CONSTRAINT `lophocphan_ibfk_3` FOREIGN KEY (`DiaDiem`) REFERENCES `phonghoc` (`DiaDiem`);
 
 --
 -- Constraints for table `sinhvien`

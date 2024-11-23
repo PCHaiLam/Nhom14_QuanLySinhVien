@@ -1,5 +1,5 @@
 <?php 
-class HocKi {
+class HocKiModel {
     protected $MaHocKi;
     protected $TenHocKi;
     protected $NgayBatDau;

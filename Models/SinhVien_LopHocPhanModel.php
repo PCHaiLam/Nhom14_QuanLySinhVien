@@ -1,5 +1,5 @@
 <?php
-class SinhVien_LopHocPhan {
+class SinhVien_LopHocPhanModel {
     protected $MaSinhVien;
     protected $MaLopHocPhan;
     protected $MaHocKi;

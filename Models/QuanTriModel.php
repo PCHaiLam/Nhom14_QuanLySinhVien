@@ -1,5 +1,5 @@
 <?php 
-class QuanTri {
+class QuanTriModel {
     protected $Email;
     protected $Admin;
     protected $Ten;

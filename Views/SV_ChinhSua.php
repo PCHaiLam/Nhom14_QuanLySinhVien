@@ -43,7 +43,6 @@ if (isset($_POST['LuuSV'])) {
     }
 }
 
-
 // Lấy danh sách khoa, lớp
 $khoaList = $khoaController->DanhSach();
 $lopList = $lopController->DanhSach();

@@ -1,5 +1,5 @@
 <?php 
-class Khoa {
+class KhoaModel {
     protected $MaKhoa;
     protected $TenKhoa;
 

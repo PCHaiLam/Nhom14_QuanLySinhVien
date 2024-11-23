@@ -4,7 +4,7 @@ include_once './config/db.php';
 include_once './Controllers/QuanTriController.php';
 
     if(isset($_SESSION['User']) == -1) {
-        header("Location: ./Views/loginPage.php");
+        header("Location: ./Views/DangNhap.php");
         exit();
     }else if (isset($_SESSION['User']) == 0) {
         header("Location: ./Views/AdminPage.php");

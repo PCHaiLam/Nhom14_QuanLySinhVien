@@ -1,5 +1,5 @@
 <?php 
-class GiaoVienController {
+class PhongController {
     protected $conn;
 
     public function __construct($conn) {
@@ -8,7 +8,7 @@ class GiaoVienController {
 
     //Hàm hiển thị danh sách phòng
     public function DanhSach() {
-        $sql = "SELECT * FROM giaovien";
+        $sql = "SELECT * FROM phonghoc";
         $result = $this->conn->query($sql);
     
         return $result;

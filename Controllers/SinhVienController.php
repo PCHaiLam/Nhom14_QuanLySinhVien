@@ -7,17 +7,9 @@ class SinhVienController
     {
         $this->conn = $conn;
     }
-    // Hàm hiển thị danh sách sinh viên
-    public function DanhSach($currentPage, $limit)
+    public function DanhSach($maKhoa, $maLop, $search, $currentPage, $limit)
     {
         $offset = ($currentPage - 1) * $limit;
-        $sql = "SELECT * FROM sinhvien LIMIT $limit OFFSET $offset";
-        $result = $this->conn->query($sql);
-
-        return $result;
-    }
-    public function timKiem($maKhoa, $maLop, $search)
-    {
         $sql = "SELECT sinhvien.* FROM sinhvien 
                 INNER JOIN lop ON sinhvien.MaLop = lop.MaLop
                 INNER JOIN khoa ON lop.MaKhoa = khoa.MaKhoa
@@ -29,7 +21,8 @@ class SinhVienController
                         OR sinhvien.Sdt LIKE '%$search%'
                         OR sinhvien.DiaChi LIKE '%$search%'
                         OR sinhvien.NgaySinh LIKE '%$search%'
-                        OR sinhvien.GioiTinh LIKE '%$search%')";
+                        OR sinhvien.GioiTinh LIKE '%$search%')
+                LIMIT $limit OFFSET $offset";
         $result = $this->conn->query($sql);
 
         return $result;
@@ -180,7 +173,7 @@ class SinhVienController
         return $email;
     }
     //Tính tổng sinh viên để phân trang
-    public function countMonHoc()
+    public function TongSV()
     {
         $sql = "SELECT COUNT(*) as total FROM sinhvien";
         $result = $this->conn->query($sql);

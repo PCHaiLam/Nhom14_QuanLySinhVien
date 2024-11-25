@@ -36,7 +36,7 @@ if (isset($_POST['ThemLHP'])) {
 <?php include_once __DIR__ . "/../layout/header.php"; ?>
 
 <body>
-    <div class="m-4 w-full mx-2 min-h-[520px] ">
+    <div class="m-4 mx-2 min-h-[535px] ">
         <button onclick="window.history.back()" class="px-3 py-2 bg-gray-400">Quay lại</button>
         <div class="w-2/3 mx-auto bg-white p-3 rounded-lg shadow-lg border-2">
             <h2 class="text-xl font-bold mb-4 text-center">Thêm mới LHP</h2>

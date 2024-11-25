@@ -54,10 +54,10 @@ $sinhvien = $svController->ChiTietSinhVien($maSV);
 <?php include_once __DIR__ . "/../layout/header.php"; ?>
 
 <body>
-    <div class="m-4 w-full mx-2 min-h-[520px] ">
+    <div class="m-4 mx-2 min-h-[535px] ">
         <button onclick="window.history.back()" class="px-3 py-2 bg-gray-400">Quay lại</button>
         <div id="" class="flex items-center justify-center">
-            <div class="bg-white p-6 rounded-lg w-max shadow-lg border-2">
+            <div class="w-1/2 bg-white p-6 rounded-lg w-max shadow-lg border-2">
                 <h2 class="text-xl font-bold mb-4 text-center">
                     <?php echo 'Chỉnh sửa thông tin sinh viên'; ?>
                 </h2>
@@ -109,12 +109,10 @@ $sinhvien = $svController->ChiTietSinhVien($maSV);
                         <input type="text" name="Sdt" class="w-full px-3 py-2 border rounded-md"
                                value="<?php echo $sinhvien['SDT']; ?>" required>
                     </div>
-                    <div class="">
+                    <div class="flex col-span-2">
                         <label class="block font-medium">Ảnh</label>
-                        <img src="" alt="Ảnh SV">
-                        <input type="file" accept="image/*" name="AnhSV" class="w-full px-3 py-2 border rounded-md "
-                            required>
-                        
+                        <img class="w-[65.6px]" src="../asset/Images/<?php echo $sinhvien['AnhSV'];?>" alt="Ảnh SV">
+                        <input type="file" accept="image/*" name="AnhSV" class="w-full px-3 py-2 border rounded-md " required>
                     </div>
                     <div class="col-span-3 text-center">
                         <button type="submit" name="LuuSV" value="LuuSV"

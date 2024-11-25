@@ -56,17 +56,16 @@ if (isset($_POST['ThemSV'])) {
 // Lấy danh sách sinh viên, khoa, lớp
 // $khoaList = $khoaController->DanhSach();
 $lopList = $lopController->DanhSach();
-$sinhvienList = $svController->DanhSach();
 ?>
 <?php include_once __DIR__ . "/../layout/header.php"; ?>
 
 <body>
-    <div class="m-4 w-full mx-2 min-h-[520px] ">
-        <button onclick="window.history.back()" class="px-3 py-2 bg-gray-400">Quay lại</button>
+    <div class="m-4 mx-2 h-[535px]">
+        <button onclick="window.history.back()" class="px-3 py-1 bg-gray-400">Quay lại</button>
         <div id="" class="flex items-center justify-center">
             <div class="bg-white p-6 rounded-lg w-max shadow-lg border-2">
                 <h2 class="text-xl font-bold mb-4 text-center">Thêm sinh viên mới</h2>
-
+                <form method="GET" action="" class="grid grid-cols-3 gap-4">
                     <div class="grid grid-cols-2">
                         <label class="block font-medium">Lớp</label>
                         <select id="lopOption" name="lopOption" class="col-span-2 p-2 border rounded-md">
@@ -86,10 +85,11 @@ $sinhvienList = $svController->DanhSach();
                         </select>
                     </div>
 
-                    <div class="">
-                        <button type="submit" name="Confirm" value="Confirm"
-                            class="mt-6 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">Xác nhận</button>
+                    <div class="col-span-2 flex items-center">
+                        <button type="submit" name="Confirm" value="Confirm"class="mt-6 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">Xác nhận</button>
+                        <div class="mt-4 ml-4 text-red-600 font-bold">*xác nhận lớp trước khi điền form</div>
                     </div>
+
                 </form>
 
                 <form method="POST" action="" class="grid grid-cols-3 gap-4 mt-4" enctype="multipart/form-data">
@@ -110,10 +110,11 @@ $sinhvienList = $svController->DanhSach();
                     </div>
                     <div class="">
                         <label class="block font-medium">Giới Tính</label>
-                        <select name="gioiTinh" class="w-full px-3 py-2 border rounded-md" required>
-                            <option value="Nam">Nam</option>
-                            <option value="Nữ">Nữ</option>
-                        </select>
+                        <!-- radio giới Tính -->
+                         <div class="px-3 py-2">
+                            <input type="radio" name="gioiTinh" value="Nam" checked> Nam
+                            <input type="radio" name="gioiTinh" value="Nữ"> Nữ
+                         </div>
                     </div>
                     <div class="">
                         <label class="block font-medium">Địa Chỉ</label>

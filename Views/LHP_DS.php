@@ -19,7 +19,7 @@ if (isset($_POST['TimKiemLHP'])) {
 <?php include_once __DIR__ . "/../layout/header.php"; ?>
 
 <body>
-    <div class="min-h-[520px] my-6 mx-2 px-4 mt-2">
+    <div class="h-[535px] my-6 mx-2 px-4 mt-2">
         <div class="w-full flex justify-between">
             <button onclick="window.history.back()" class="px-3 py-2 mb-2 bg-gray-400 rounded-xl">Quay lại</button>
             <form action="" method="post">

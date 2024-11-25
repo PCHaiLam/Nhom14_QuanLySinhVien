@@ -8,19 +8,27 @@ $svController = new SinhVienController($conn);
 $khoaController = new KhoaController($conn);
 $lopController = new LopController($conn);
 
+// Lấy danh sách khoa, lớp
+$khoaList = $khoaController->DanhSach();
+$lopList = $lopController->DanhSach();
 
 if (isset($_GET['MaSV'])) {
     $maSV = $_GET['MaSV'];
 }
+
+$sinhvien = $svController->ChiTietSinhVien($maSV);
+$maLop = $sinhvien['MaLop'];
+
+
 
 // Xử lý thêm hoặc cập nhật sinh viên
 if (isset($_POST['LuuSV'])) {
     $maSV = $_POST['maSV'];
     $hoTen = $_POST['hoTen'];
     $ngaySinh = $_POST['ngaySinh'];
+    $email = $svController->EmailTuDong($hoTen,$maLop);
     $gioiTinh = $_POST['gioiTinh'];
     $diaChi = $_POST['diaChi'];
-    $email = $_POST['email'];
     $sdt = $_POST['Sdt'];
     $anhSV = $_FILES['AnhSV'];
     //$maLop = $_POST['lopOption'];
@@ -38,17 +46,12 @@ if (isset($_POST['LuuSV'])) {
         }
         $fileName = strtolower(basename($anhSV['name']));
         $fileName = preg_replace("/[^a-z0-9\.]/", "_", $fileName);
+        $full_path = "../asset/Images/" . $fileName;
+        move_uploaded_file($anhSV['tmp_name'], $full_path);
 
-        $message = $svController->SuaSinhVien($maSV, $hoTen, $ngaySinh, $gioiTinh, $diaChi, $email, $sdt, $fileName);
+        $message = $svController->SuaSinhVien($maSV, $hoTen, $ngaySinh, $gioiTinh, $diaChi, $sdt, $email, $fileName);
     }
 }
-
-// Lấy danh sách khoa, lớp
-$khoaList = $khoaController->DanhSach();
-$lopList = $lopController->DanhSach();
-
-$sinhvien = $svController->ChiTietSinhVien($maSV);
-
 
 ?>
 <?php include_once __DIR__ . "/../layout/header.php"; ?>
@@ -68,6 +71,12 @@ $sinhvien = $svController->ChiTietSinhVien($maSV);
                         <input type="text" name="maSV" class="w-full px-3 py-2 border rounded-md bg-gray-200"
                                value="<?php echo $maSV; ?>" readonly>
                     </div>
+                    <div class="">
+                        <label class="block font-medium">Mã lớp</label>
+                        <input type="text" name="maLop" class="w-full px-3 py-2 border rounded-md bg-gray-200"
+                               value="<?php echo $sinhvien['MaLop']; ?>" readonly>
+                    </div>
+                    <div></div>
                     <div class="">
                         <label class="block font-medium">Họ Tên</label>
                         <input type="text" name="hoTen" class="w-full px-3 py-2 border rounded-md"

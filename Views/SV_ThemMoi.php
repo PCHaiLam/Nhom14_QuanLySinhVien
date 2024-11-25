@@ -47,6 +47,7 @@ if (isset($_POST['ThemSV'])) {
         $fileName = preg_replace("/[^a-z0-9\.]/", "_", $fileName);  // Chỉ giữ lại chữ cái, số và dấu chấm (.)
         $full_path = "../asset/Images/" . $fileName;
         move_uploaded_file($anhSV['tmp_name'], $full_path);
+
         $message = $svController->ThemSinhVien($maSV, $hoTen, $ngaySinh, $gioiTinh, $diaChi, $email, $sdt, $fileName , $maLop);
     } else {
         $message = $svController->ThemSinhVien($maSV, $hoTen, $ngaySinh, $gioiTinh, $diaChi, $email, $sdt, '', $maLop); // Truyền giá trị ảnh là rỗng

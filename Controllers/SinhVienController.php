@@ -30,6 +30,10 @@ class SinhVienController
     // Hàm thêm sinh viên
     public function ThemSinhVien($maSV, $hoTen, $ngaySinh, $gioiTinh, $diaChi, $email, $sdt, $anhSV, $maLop)
     {
+        $emailChecked = $this->KiemTraEmailTonTai($email);
+        if ($emailChecked != $email) {
+            $email = $emailChecked;
+        }
         $sql = "INSERT INTO sinhvien (MaSV, HoTen, NgaySinh, GioiTinh, DiaChi, Email, Sdt, AnhSV, MaLop) VALUES ('$maSV', '$hoTen', '$ngaySinh', '$gioiTinh', '$diaChi', '$email', '$sdt', '$anhSV', '$maLop')";
 
         if ($this->conn->query($sql) === TRUE) {
@@ -47,12 +51,18 @@ class SinhVienController
         return $result->fetch_assoc();
     }
     // Hàm sửa sinh viên
-    public function SuaSinhVien($maSV, $hoTen, $ngaySinh, $gioiTinh, $diaChi, $email, $sdt, $fileName)
+    public function SuaSinhVien($maSV, $hoTen, $ngaySinh, $gioiTinh, $diaChi, $sdt, $email, $fileName)
     {
-        $sql = "UPDATE sinhvien SET HoTen='$hoTen', NgaySinh='$ngaySinh', GioiTinh='$gioiTinh', DiaChi='$diaChi', Email='$email', Sdt='$sdt', AnhSV='$fileName' WHERE MaSV='$maSV'";
+        $emailChecked = $this->KiemTraEmailTonTai($email);
+        if ($emailChecked != $email) {
+            $email = $emailChecked;
+        }
+
+        $sql = "UPDATE sinhvien SET HoTen='$hoTen', NgaySinh='$ngaySinh', GioiTinh='$gioiTinh', DiaChi='$diaChi', Sdt='$sdt', Email='$email', AnhSV='$fileName' WHERE MaSV='$maSV'";
 
         if ($this->conn->query($sql) === TRUE) {
-            return "Sửa sinh viên thành công.";
+            header("Location: SV_ChinhSua.php?MaSV=$maSV");
+            exit;
         } else {
             return "Lỗi khi sửa sinh viên: " . $this->conn->error;
         }
@@ -171,6 +181,32 @@ class SinhVienController
         $email = "{$ten}.{$hoTenDem}.{$prefixNam}{$nganh}@ntu.edu.vn";
     
         return $email;
+    }
+    // Hàm kiểm tra mail tồn tại: nếu tồn tại sẽ trả về mail và nếu đã có số thì cộng thêm, nếu chưa có thì sẽ tạo số. vd: lam.pch.63cntt@edu.ntu.edu -> lam.pch.63cntt.1@edu.ntu.vn
+    public function KiemTraEmailTonTai($email)
+    {
+        // Tách email thành phần cơ sở và tên miền
+        $parts = explode("@", $email);
+        $baseEmail = $parts[0]; // Phần trước '@'
+        $domain = $parts[1];    // Phần sau '@'
+        
+        $i = 0; // Bắt đầu số đếm từ 0
+        $newEmail = $email; // Khởi tạo email kiểm tra
+
+        do {
+            // Nếu số đếm > 0, thêm số vào baseEmail
+            if ($i > 0) {
+                $newEmail = $baseEmail . "." . $i . "@" . $domain;
+            }
+            
+            // Kiểm tra email trong cơ sở dữ liệu
+            $sql = "SELECT Email FROM sinhvien WHERE Email = '$newEmail'";
+            $result = $this->conn->query($sql);
+            
+            $i++; // Tăng số đếm
+        } while ($result->num_rows > 0); // Lặp đến khi không còn email trùng
+        
+        return $newEmail; // Trả về email không trùng
     }
     //Tính tổng sinh viên để phân trang
     public function TongSV()

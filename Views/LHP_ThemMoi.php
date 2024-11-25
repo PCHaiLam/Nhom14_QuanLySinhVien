@@ -103,7 +103,7 @@ if (isset($_POST['ThemLHP'])) {
                         if ($lopDS->num_rows > 0) {
                             // Lặp qua từng khoa và tạo các <option>
                             while ($lop = $lopDS->fetch_assoc()) {
-                                echo "<option value=\"" . $lop['MaLop'] . "\">" . htmlspecialchars($lop['TenLop']) . "</option>";
+                                echo "<option value=\"" . $lop['MaLop'] . "\">" . htmlspecialchars($lop['TenLop'])." - " .htmlspecialchars($lop['MaLop']) . "</option>";
                             }
                         }
                         ?>

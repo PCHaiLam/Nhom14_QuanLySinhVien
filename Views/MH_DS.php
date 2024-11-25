@@ -27,7 +27,7 @@ if (isset($_POST['TimKiemMH'])) {
             </form>
             <a href="MH_ThemMoi.php" class="px-3 py-2 mb-2 bg-blue-400 rounded-xl cursor-pointer hover:bg-blue-500">Thêm mới</a>
         </div>
-        <div class="py-4 h-[490px] overflow-scroll overflow-x-hidden">
+        <div class="py-4 h-[490px] overflow-scroll overflow-x-hidden border-t-2">
             <table class="w-3/4 mx-auto bg-white  border-2 rounded">
                 <tr>
                     <th class="py-3 px-4 border-b text-left">STT</th>

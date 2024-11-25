@@ -19,6 +19,12 @@ if (isset($_POST['SuaMH'])) {
     $message = $monhocController->SuaMonHoc($maHP, $tenMonHoc, $soTC, $donGia);
 }
 
+//Xóa môn học
+if (isset($_POST['XoaMonHoc'])) {
+    $maHP = $_POST['MaHP'];
+    $message = $monhocController->XoaMonHoc($maHP);
+}
+
 ?>
 <?php include_once __DIR__ . "/../layout/header.php"; ?>
 
@@ -40,7 +46,7 @@ if (isset($_POST['SuaMH'])) {
                             <button class="bg-gray-300 px-4 py-2 rounded" onclick="closeModal()">Hủy</button>
                             <form method="POST" action="">
                                 <input type="hidden" name="MaHP" value="<?php echo $maHP ?>">
-                                <button class='bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600'>Xóa</button>
+                                <button name="XoaMonHoc" class='bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600'>Xóa</button>
                             </form>
                         </div>
                     </div>
@@ -58,7 +64,7 @@ if (isset($_POST['SuaMH'])) {
                     <div class="">
                         <label class="block font-medium">Tên Môn Học</label>
                         <input type="text" name="tenMonHoc" value="<?php echo $monhoc['TenHP'] ?>"
-                            class="bg-gray-200 w-full px-3 py-2 border rounded-md" disabled>
+                            class="w-full px-3 py-2 border rounded-md">
                     </div>
                     <div class="">
                         <label class="block font-medium">Số Tín Chỉ</label>

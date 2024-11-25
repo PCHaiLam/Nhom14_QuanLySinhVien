@@ -18,9 +18,9 @@ $quantriController = new QuanTriController($conn);
             <a href="LHP_DS.php" class="menu-item bg-blue-600 text-white flex justify-center items-center h-36 rounded-lg font-bold text-center hover:bg-blue-800 transition-colors">
                 Lớp học phần
             </a>
-            <a href="DiemLHP.php" class="menu-item bg-blue-600 text-white flex justify-center items-center h-36 rounded-lg font-bold text-center hover:bg-blue-800 transition-colors">
+            <!-- <a href="DiemLHP.php" class="menu-item bg-blue-600 text-white flex justify-center items-center h-36 rounded-lg font-bold text-center hover:bg-blue-800 transition-colors">
                 Điểm
-            </a>
+            </a> -->
         </div>
     </div>
 <?php include_once __DIR__ . "/../layout/footer.php"; ?>

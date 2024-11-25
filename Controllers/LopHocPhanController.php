@@ -21,6 +21,13 @@ class LopHocPhanController {
     
         return $result;
     }
+    //Hàm tìm kiếm LHP theo id
+    public function ChiTietLHP($maLHP) {
+        $sql = "SELECT * FROM lophocphan WHERE MaLopHocPhan = '$maLHP'";
+        $result = $this->conn->query($sql);
+    
+        return $result->fetch_assoc();
+    }
     // Hàm tìm kiếm LHP
     public function TimKiem($search) {
         $sql = "SELECT lhp.MaLopHocPhan, mh.TenHP, ph.DiaDiem, gv.HoTen, l.MaLop FROM lophocphan lhp
@@ -51,9 +58,29 @@ class LopHocPhanController {
             return "Thêm lớp học phần thất bại";
         }
     }
+    //Hàm sửa LHP
+    public function SuaLHP($maLHP, $diaDiem, $giaoVien) {
+        $sql = "UPDATE lophocphan SET  DiaDiem = '$diaDiem', MaGV = '$giaoVien' WHERE MaLopHocPhan = '$maLHP'";
+        if ($this->conn->query($sql) === TRUE) {
+            header("Location: LHP_DS.php");
+            exit;
+        } else {
+            return "Sửa lớp học phần thất bại";
+        }
+    }
     //Hàm tạo mã LHP tự động: ghép mã môn học + mã lớp bằng dấu _
     public function TaoMaLHP($maHP, $maLop) {
         return $maHP . "_" . $maLop;
+    }
+    //Hàm xóa LHP
+    public function XoaLHP($maLHP) {
+        $sql = "DELETE FROM lophocphan WHERE MaLopHocPhan = '$maLHP'";
+        if ($this->conn->query($sql) === TRUE) {
+            header("Location: LHP_DS.php");
+            exit;
+        } else {
+            return "Xóa lớp học phần thất bại";
+        }
     }
 }
 ?>

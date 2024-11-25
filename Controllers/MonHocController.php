@@ -70,9 +70,10 @@ class MonHocController {
         $sql = "DELETE FROM monhoc WHERE MaHP='$maMH'";
         //nếu câu truy vấn thành công thì chuyển hướng về trang danh sách môn học
         if ($this->conn->query($sql) === TRUE) {
-            return true;
+            header("Location: MH_DS.php");
+            exit;
         } else {
-            return false;
+            return "Lỗi khi xóa môn học: " . $this->conn->error;
         }
     }
 }

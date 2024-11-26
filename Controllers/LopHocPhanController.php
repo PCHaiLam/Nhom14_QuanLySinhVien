@@ -35,7 +35,10 @@ class LopHocPhanController {
                 JOIN giaovien gv ON lhp.MaGV = gv.MaGV
                 JOIN lop l ON lhp.MaLop = l.MaLop
                 JOIN phonghoc ph ON lhp.DiaDiem = ph.DiaDiem
-                WHERE mh.TenHP LIKE '%$search%' OR gv.HoTen LIKE '%$search%' OR l.MaLop LIKE '%$search%'
+                WHERE 
+                lhp.MaLopHocPhan LIKE '%$search%' OR
+                ph.DiaDiem LIKE '%$search%' OR
+                mh.TenHP LIKE '%$search%' OR gv.HoTen LIKE '%$search%' OR l.MaLop LIKE '%$search%'
                 ";
         $result = $this->conn->query($sql);
     

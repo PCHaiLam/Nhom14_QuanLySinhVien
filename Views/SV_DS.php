@@ -84,7 +84,7 @@ $tongSV = $svController->TongSV();
         </div>
         
         <!-- hiển thị bảng sinh viên -->
-        <div class="flex flex-col justify-between w-full h-[300]px mx-2 bg-white rounded-xl shadow border-2">
+        <div class="flex flex-col justify-between w-full mx-2 bg-white rounded-xl shadow border-2">
             <div class=" h-[430px]">
                 <table border="1" cellpadding="10" cellspacing="0" class="w-full text-left border border-collapse">
                     <thead>
